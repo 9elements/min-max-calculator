@@ -1,6 +1,6 @@
 # Min-Max-Calculator
 
-Made with [Astro](https://astro.build), [React](https://reactjs.org) and [PostCSS](https://postcss.org).
+Made with [Astro](https://astro.build), [Svelte](https://svelte.dev) and [PostCSS](https://postcss.org).
 
 ## Local setup
 
