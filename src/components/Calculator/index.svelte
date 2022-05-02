@@ -34,7 +34,7 @@
   <div class={styles.inputs}>
     <div class={styles.unitSwitcher}>
       <!-- TODO: Make this work (unit conversion in inputs) -->
-      <label for="unit">Use rem instead of px</label>
+      <label for="unit">Use rem instead of px (TODO)</label>
       <input
         type="checkbox"
         id="unit"
