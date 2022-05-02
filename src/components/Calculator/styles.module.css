@@ -1,0 +1,55 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.inputs {
+  margin-top: 1.5rem;
+  display: flex;
+  /* flex-wrap: wrap; */
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.output {
+  display: block;
+  position: relative;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: rgb(0 0 0 / 0.1);
+  white-space: normal;
+  line-height: 1.25;
+}
+
+.copyButton {
+  --size: 2.25rem;
+  --offset: 0.25rem;
+  --base-rgb: 0 0 200;
+  --bg-opacity: 0.1;
+
+  border: none;
+  background-color: rgb(var(--base-rgb) / var(--bg-opacity));
+  border-radius: 0.375rem;
+  width: var(--size);
+  height: var(--size);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease-in-out;
+  position: absolute;
+  top: var(--offset);
+  right: var(--offset);
+
+  &:hover {
+    --bg-opacity: 0.2;
+  }
+
+  & svg {
+    --size: 1.5rem;
+
+    width: var(--size);
+    height: var(--size);
+    color: rgb(var(--base-rgb) / 0.9);
+  }
+}

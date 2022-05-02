@@ -1,0 +1,35 @@
+---
+import "../styles/vars.css"
+import "../styles/global.css"
+import "../styles/index.css"
+
+import Calculator from "../components/Calculator/index.svelte"
+
+//  TODO: Proper title and description
+const title = "Min-Max-Calculator"
+const description = ""
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="og:description" content={description} />
+  </head>
+  <body>
+    <header>
+      <!-- header stuff...	 -->
+      <h1>{title}</h1>
+    </header>
+    <main>
+      <Calculator client:load />
+    </main>
+    <footer>
+      <!-- Footer stuff... Made with love by 9elements -->
+    </footer>
+  </body>
+</html>
