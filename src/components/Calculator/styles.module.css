@@ -130,7 +130,7 @@
   background-color: rgb(var(--base-rgb) / var(--bg-opacity));
   border-radius: 0.375rem;
   width: var(--size);
-  height: var(--items-size);
+  height: var(--size);
   display: inline-flex;
   align-items: center;
   justify-content: center;
