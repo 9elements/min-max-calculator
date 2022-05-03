@@ -2,7 +2,7 @@
   import CopyIcon from "../Icons/Copy.svelte"
   import styles from "./styles.module.css"
 
-  let unit = "px"
+  let unit = "px" // or "rem"
   $: isRem = unit === "rem"
 
   let minValue = 24
@@ -13,7 +13,18 @@
   let result
 
   // Functions
-  const toRem = (value) => `${+(isRem ? value : value / 16).toFixed(2)}rem`
+  const toRem = (value) => +(isRem ? value : value / 16).toFixed(2)
+  const toPx = (value) => +(isRem ? value * 16 : value).toFixed(2)
+
+  const switchUnit = () => {
+    const switchValue = (value) => (isRem ? toPx(value) : toRem(value))
+
+    unit = unit === "px" ? "rem" : "px"
+    minValue = switchValue(minValue)
+    maxValue = switchValue(maxValue)
+    minViewport = switchValue(minViewport)
+    maxViewport = switchValue(maxViewport)
+  }
   const copyToClipboard = () => {
     navigator.clipboard.writeText(result)
     // To-Do: show a success message/toast
@@ -23,29 +34,27 @@
     const variablePart = (maxValue - minValue) / (maxViewport - minViewport)
     const constant = toRem(+(maxValue - maxViewport * variablePart))
 
-    result = `
-      --variable-value: clamp(${toRem(minValue)},
-      calc(${constant} + ${+(100 * variablePart).toFixed(2)}vw),
-      ${toRem(maxValue)})`
+    result = `--variable-value: clamp(${toRem(
+      minValue
+    )}rem, calc(${constant}rem + ${+(100 * variablePart).toFixed(
+      2
+    )}vw), ${toRem(maxValue)}rem)`
   }
 </script>
 
 <div class={styles.wrapper} style={result}>
   <div class={styles.inputs}>
     <div class={styles.unitSwitcher}>
-      <!-- TODO: Make this work (unit conversion in inputs) -->
-      <label for="unit">Use rem instead of px (TODO)</label>
-      <input
-        type="checkbox"
-        id="unit"
-        on:change={() => (unit = unit === "px" ? "rem" : "px")}
-      />
+      <label for="unit">Use rem instead of px</label>
+      <input type="checkbox" id="unit" on:change={switchUnit} />
     </div>
 
     <hr />
 
     <div class={styles.input}>
-      <label for="min-value">Min value (can be negative)</label>
+      <label for="min-value">
+        Min value (can be negative, e.g. for margins)
+      </label>
       <input type="number" id="min-value" bind:value={minValue} />
     </div>
 
@@ -69,7 +78,9 @@
 
   <div>
     <code class={styles.output}>
-      {result}
+      <span class={styles.outputCSS}>
+        {result}
+      </span>
       <button class={styles.copyButton} on:click={copyToClipboard}>
         <span class="sr-only">Copy snippet to clipboard</span>
         <CopyIcon />
@@ -77,14 +88,5 @@
     </code>
   </div>
 
-  <div class="box" />
+  <div class={styles.box} />
 </div>
-
-<style>
-  .box {
-    width: var(--variable-value);
-    height: var(--variable-value);
-
-    background-color: lightcoral;
-  }
-</style>

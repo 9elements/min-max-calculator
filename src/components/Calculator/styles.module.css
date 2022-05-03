@@ -7,14 +7,27 @@
 .inputs {
   margin-top: 1.5rem;
   display: flex;
-  /* flex-wrap: wrap; */
   flex-direction: column;
   gap: 1rem;
 }
 
+.input {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 20rem;
+
+  & input {
+    height: 2.5rem;
+    padding-inline: 0.5rem;
+  }
+}
+
 .output {
-  display: block;
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   padding: 1rem;
   border-radius: 0.5rem;
   background-color: rgb(0 0 0 / 0.1);
@@ -36,10 +49,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  align-self: flex-start;
+  flex-shrink: 0;
   transition: background-color 0.2s ease-in-out;
-  position: absolute;
-  top: var(--offset);
-  right: var(--offset);
 
   &:hover {
     --bg-opacity: 0.2;
@@ -52,4 +64,11 @@
     height: var(--size);
     color: rgb(var(--base-rgb) / 0.9);
   }
+}
+
+.box {
+  width: var(--variable-value);
+  height: var(--variable-value);
+
+  background-color: lightcoral;
 }
