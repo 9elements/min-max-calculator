@@ -47,3 +47,7 @@ button {
     scroll-behavior: auto !important;
   }
 }
+
+.st-toast-body {
+  align-items: center;
+}

@@ -16,6 +16,7 @@
     "prettier-plugin-astro": "^0.0.12"
   },
   "dependencies": {
+    "@zerodevx/svelte-toast": "^0.7.1",
     "modern-normalize": "^1.1.0"
   }
 }

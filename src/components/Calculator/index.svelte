@@ -1,4 +1,5 @@
 <script>
+  import { SvelteToast, toast } from "@zerodevx/svelte-toast"
   import CopyIcon from "../Icons/Copy.svelte"
   import styles from "./styles.module.css"
 
@@ -13,24 +14,32 @@
   let result
 
   // Functions
-  const toRem = (value) => +(isRem ? value : value / 16).toFixed(2)
-  const toPx = (value) => +(isRem ? value * 16 : value).toFixed(2)
+  const toRem = (value) => +(isRem ? value : value / 16).toFixed(3)
+  const toPx = (value) => +(isRem ? value * 16 : value).toFixed(3)
 
   const switchUnit = () => {
     const switchValue = (value) => (isRem ? toPx(value) : toRem(value))
-
     unit = unit === "px" ? "rem" : "px"
+
     minValue = switchValue(minValue)
     maxValue = switchValue(maxValue)
     minViewport = switchValue(minViewport)
     maxViewport = switchValue(maxViewport)
   }
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(result)
-    // To-Do: show a success message/toast
+    navigator.clipboard.writeText(result).then(() =>
+      toast.push("Copied to clipboard!", {
+        theme: {
+          "--toastBackground": "#48BB78",
+          "--toastBarBackground": "#2F855A",
+          "--toastColor": "rgb(0 0 0)",
+        },
+      })
+    )
   }
 
   $: {
+    // Write Result
     const variablePart = (maxValue - minValue) / (maxViewport - minViewport)
     const constant = toRem(+(maxValue - maxViewport * variablePart))
 
@@ -55,7 +64,12 @@
       <label for="min-value">
         Min value (can be negative, e.g. for margins)
       </label>
-      <input type="number" id="min-value" bind:value={minValue} />
+      <input
+        type="number"
+        id="min-value"
+        bind:value={minValue}
+        max={maxValue - 1}
+      />
     </div>
 
     <div class={styles.input}>
@@ -67,7 +81,12 @@
 
     <div class={styles.input}>
       <label for="max-value">Max value</label>
-      <input type="number" id="max-value" bind:value={maxValue} />
+      <input
+        type="number"
+        id="max-value"
+        min={minValue + 1}
+        bind:value={maxValue}
+      />
     </div>
 
     <div class={styles.input}>
@@ -90,3 +109,5 @@
 
   <div class={styles.box} />
 </div>
+
+<SvelteToast />
