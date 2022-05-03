@@ -62,9 +62,19 @@
 
 <div class={styles.wrapper} style={result}>
   <form on:submit|preventDefault class={styles.inputs}>
-    <div class={styles.unitSwitcher}>
-      <label for="unit">Use rem instead of px</label>
-      <input type="checkbox" id="unit" on:change={switchUnit} />
+    <div class={styles.unitToggleWrapper}>
+      <label for="unit" class="sr-only">Use rem instead of px</label>
+      <div class={styles.unitToggle} aria-hidden="true">
+        <input
+          type="checkbox"
+          id="unit"
+          on:change={switchUnit}
+          class={styles.unitCheckbox}
+        />
+        <span class={styles.unitToggleBg} />
+        <span class={styles.unitToggleText}>px</span>
+        <span class={styles.unitToggleText}>rem</span>
+      </div>
     </div>
 
     <hr />
