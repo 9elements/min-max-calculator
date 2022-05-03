@@ -66,6 +66,17 @@
   }
 }
 
+.errors {
+  background-color: rgb(222 0 0 / 0.15);
+  padding: 1rem;
+  border-radius: 0.5rem;
+
+  & ul {
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+  }
+}
+
 .box {
   width: var(--variable-value);
   height: var(--variable-value);

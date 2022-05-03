@@ -5,6 +5,7 @@
 
   let unit = "px" // or "rem"
   $: isRem = unit === "rem"
+  let hasError = false
 
   let minValue = 24
   let maxValue = 80
@@ -31,9 +32,10 @@
       toast.push("Copied to clipboard!", {
         duration: 2000,
         theme: {
-          "--toastBackground": "#48BB78",
-          "--toastBarBackground": "#2F855A",
-          "--toastColor": "rgb(0 0 0)",
+          "--toastBackground": "#ccebd7",
+          "--toastBarBackground": "#5bb98c",
+          "--toastColor": "#153226",
+          "--toastBorderRadius": "0.375rem",
         },
       })
     )
@@ -75,7 +77,7 @@
 
     <div class={styles.input}>
       <label for="min-viewport">Min viewport</label>
-      <input type="number" id="min-viewport" bind:value={minViewport} />
+      <input type="number" id="min-viewport" min={0} bind:value={minViewport} />
     </div>
 
     <hr />
@@ -92,11 +94,15 @@
 
     <div class={styles.input}>
       <label for="max-viewport">Max viewport</label>
-      <input type="number" id="max-viewport" bind:value={maxViewport} />
+      <input type="number" id="max-viewport" min={0} bind:value={maxViewport} />
     </div>
   </div>
 
-  <div>
+  {#if hasError}
+    <div class={styles.errors}>
+      <strong> there are errors </strong>
+    </div>
+  {:else}
     <code class={styles.output}>
       <span class={styles.outputCSS}>
         {result}
@@ -106,7 +112,7 @@
         <CopyIcon />
       </button>
     </code>
-  </div>
+  {/if}
 
   <div class={styles.box} />
 </div>
