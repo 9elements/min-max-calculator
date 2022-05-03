@@ -5,12 +5,14 @@
 
   let unit = "px" // or "rem"
   $: isRem = unit === "rem"
-  let hasError = false
 
   let minValue = 24
   let maxValue = 80
   let minViewport = 500
   let maxViewport = 1000
+
+  $: hasError = minValue > maxValue || maxViewport < 1 || minViewport < 0
+  $: hasNegative = minViewport < 0 || maxViewport < 1
 
   let result
 
@@ -42,20 +44,24 @@
   }
 
   $: {
+    // Error handling
+    /**
+     * Error when:
+     * - minValue is greater than maxValue
+     * - any value except minValue is negative
+     */
+
     // Write Result
     const variablePart = (maxValue - minValue) / (maxViewport - minViewport)
     const constant = toRem(+(maxValue - maxViewport * variablePart))
 
-    result = `--variable-value: clamp(${toRem(
-      minValue
-    )}rem, calc(${constant}rem + ${+(100 * variablePart).toFixed(
-      2
-    )}vw), ${toRem(maxValue)}rem)`
+    // prettier-ignore
+    result = `--variable-value: clamp(${toRem(minValue)}rem, calc(${constant}rem + ${+(100 * variablePart).toFixed(2)}vw), ${toRem(maxValue)}rem)`
   }
 </script>
 
 <div class={styles.wrapper} style={result}>
-  <div class={styles.inputs}>
+  <form on:submit|preventDefault class={styles.inputs}>
     <div class={styles.unitSwitcher}>
       <label for="unit">Use rem instead of px</label>
       <input type="checkbox" id="unit" on:change={switchUnit} />
@@ -96,11 +102,23 @@
       <label for="max-viewport">Max viewport</label>
       <input type="number" id="max-viewport" min={0} bind:value={maxViewport} />
     </div>
-  </div>
+    <hr />
+  </form>
 
   {#if hasError}
     <div class={styles.errors}>
-      <strong> there are errors </strong>
+      <strong>Oh no, there are errors </strong>
+      <ul>
+        {#if minValue > maxValue}
+          <li>Min value must be less than max value</li>
+        {/if}
+        {#if hasNegative}
+          <li>
+            Please make sure all the viewport values are positive numbers and
+            the max viewport is greater than 0
+          </li>
+        {/if}
+      </ul>
     </div>
   {:else}
     <code class={styles.output}>
@@ -114,7 +132,9 @@
     </code>
   {/if}
 
-  <div class={styles.box} />
+  {#if !hasError}
+    <div class={styles.box} />
+  {/if}
 </div>
 
 <SvelteToast />

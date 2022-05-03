@@ -23,6 +23,10 @@
   }
 }
 
+.inputErrorMessage {
+  color: rgb(222 0 0 / 1);
+}
+
 .output {
   display: flex;
   align-items: center;
@@ -78,8 +82,12 @@
 }
 
 .box {
-  width: var(--variable-value);
-  height: var(--variable-value);
+  /* width: var(--variable-value);
+  height: var(--variable-value); */
+  width: 4rem;
+  height: 4rem;
+
+  margin-left: var(--variable-value);
 
   background-color: lightcoral;
 }
