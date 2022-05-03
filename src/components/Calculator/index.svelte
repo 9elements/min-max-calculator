@@ -29,6 +29,7 @@
   const copyToClipboard = () => {
     navigator.clipboard.writeText(result).then(() =>
       toast.push("Copied to clipboard!", {
+        duration: 2000,
         theme: {
           "--toastBackground": "#48BB78",
           "--toastBarBackground": "#2F855A",
