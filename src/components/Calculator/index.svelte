@@ -7,14 +7,14 @@
   $: isRem = unit === "rem"
   const toRem = (value) => +(isRem ? value : value / 16).toFixed(3)
   const toPx = (value) => +(isRem ? value * 16 : value).toFixed(3)
-  const switchTo = (value) => (isRem ? toRem(value) : toPx(value))
+  const switchToCurrentValue = (value) => (isRem ? toRem(value) : toPx(value))
 
   let minValue = 24
   let maxValue = 80
   let minViewportPx = 500
   let maxViewportPx = 1000
-  $: minViewport = switchTo(minViewportPx)
-  $: maxViewport = switchTo(maxViewportPx)
+  $: minViewport = switchToCurrentValue(minViewportPx)
+  $: maxViewport = switchToCurrentValue(maxViewportPx)
 
   $: hasError = minValue > maxValue || maxViewportPx < 1 || minViewportPx < 0
   $: hasNegative = minViewportPx < 0 || maxViewportPx < 1
