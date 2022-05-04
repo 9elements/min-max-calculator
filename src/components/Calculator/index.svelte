@@ -5,20 +5,23 @@
 
   let unit = "px" // or "rem"
   $: isRem = unit === "rem"
+  const toRem = (value) => +(isRem ? value : value / 16).toFixed(3)
+  const toPx = (value) => +(isRem ? value * 16 : value).toFixed(3)
+  const switchTo = (value) => (isRem ? toRem(value) : toPx(value))
 
   let minValue = 24
   let maxValue = 80
-  let minViewport = 500
-  let maxViewport = 1000
+  let minViewportPx = 500
+  let maxViewportPx = 1000
+  $: minViewport = switchTo(minViewportPx)
+  $: maxViewport = switchTo(maxViewportPx)
 
-  $: hasError = minValue > maxValue || maxViewport < 1 || minViewport < 0
-  $: hasNegative = minViewport < 0 || maxViewport < 1
+  $: hasError = minValue > maxValue || maxViewportPx < 1 || minViewportPx < 0
+  $: hasNegative = minViewportPx < 0 || maxViewportPx < 1
 
   let result
 
   // Functions
-  const toRem = (value) => +(isRem ? value : value / 16).toFixed(3)
-  const toPx = (value) => +(isRem ? value * 16 : value).toFixed(3)
 
   const switchUnit = () => {
     const switchValue = (value) => (isRem ? toPx(value) : toRem(value))
@@ -33,28 +36,14 @@
     navigator.clipboard.writeText(result).then(() =>
       toast.push("Copied to clipboard!", {
         duration: 2000,
-        theme: {
-          "--toastBackground": "#ccebd7",
-          "--toastBarBackground": "#5bb98c",
-          "--toastColor": "#153226",
-          "--toastBorderRadius": "0.375rem",
-        },
       })
     )
   }
 
   $: {
-    // Error handling
-    /**
-     * Error when:
-     * - minValue is greater than maxValue
-     * - any value except minValue is negative
-     */
-
     // Write Result
     const variablePart = (maxValue - minValue) / (maxViewport - minViewport)
     const constant = toRem(+(maxValue - maxViewport * variablePart))
-
     // prettier-ignore
     result = `--variable-value: clamp(${toRem(minValue)}rem, calc(${constant}rem + ${+(100 * variablePart).toFixed(2)}vw), ${toRem(maxValue)}rem)`
   }
@@ -77,40 +66,60 @@
       </div>
     </div>
 
-    <hr />
-
     <div class={styles.input}>
       <label for="min-value">
-        Min value (can be negative, e.g. for margins)
+        Min value <br /> <small> (can be negative, e.g. for margins) </small>
       </label>
-      <input
-        type="number"
-        id="min-value"
-        bind:value={minValue}
-        max={maxValue - 1}
-      />
+      <div>
+        <input
+          type="number"
+          id="min-value"
+          bind:value={minValue}
+          max={maxValue - 1}
+        />
+        {unit}
+      </div>
     </div>
-
-    <div class={styles.input}>
-      <label for="min-viewport">Min viewport</label>
-      <input type="number" id="min-viewport" min={0} bind:value={minViewport} />
-    </div>
-
-    <hr />
 
     <div class={styles.input}>
       <label for="max-value">Max value</label>
-      <input
-        type="number"
-        id="max-value"
-        min={minValue + 1}
-        bind:value={maxValue}
-      />
+      <div>
+        <input
+          type="number"
+          id="max-value"
+          min={minValue + 1}
+          bind:value={maxValue}
+        />
+        {unit}
+      </div>
+    </div>
+
+    <hr />
+
+    <div class={styles.input}>
+      <label for="min-viewport">Min viewport</label>
+      <div>
+        <input
+          type="number"
+          id="min-viewport"
+          min={0}
+          bind:value={minViewportPx}
+        />
+        px
+      </div>
     </div>
 
     <div class={styles.input}>
       <label for="max-viewport">Max viewport</label>
-      <input type="number" id="max-viewport" min={0} bind:value={maxViewport} />
+      <div>
+        <input
+          type="number"
+          id="max-viewport"
+          min={0}
+          bind:value={maxViewportPx}
+        />
+        px
+      </div>
     </div>
     <hr />
   </form>
