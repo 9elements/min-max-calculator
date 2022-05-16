@@ -7,13 +7,13 @@ Made with [Astro](https://astro.build), [Svelte](https://svelte.dev) and [PostCS
 ### Install dependencies
 
 ```sh
-  yarn install
+yarn install
 ```
 
 ### Start server
 
 ```sh
-  yarn dev
+yarn dev
 ```
 
 > Done! the server is accessible at http://localhost:3000
@@ -21,7 +21,7 @@ Made with [Astro](https://astro.build), [Svelte](https://svelte.dev) and [PostCS
 ## Deployment
 
 ```sh
-  yarn build
+yarn build
 ```
 
 The output

@@ -1,6 +1,7 @@
 <script>
-  import { SvelteToast, toast } from "@zerodevx/svelte-toast"
-  import CopyIcon from "../Icons/Copy.svelte"
+  import { fly } from "svelte/transition"
+  import { cubicInOut } from "svelte/easing"
+  import CheckIcon from "../Icons/Check.svelte"
   import styles from "./styles.module.css"
 
   let unit = "px" // or "rem"
@@ -20,6 +21,7 @@
   $: hasNegative = minViewportPx < 0 || maxViewportPx < 1
 
   let result
+  let isCopied = false
 
   // Functions
 
@@ -32,12 +34,14 @@
     minViewport = switchValue(minViewport)
     maxViewport = switchValue(maxViewport)
   }
+
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(result).then(() =>
-      toast.push("Copied to clipboard!", {
-        duration: 2000,
-      })
-    )
+    navigator.clipboard.writeText(result).then(() => {
+      isCopied = true
+      setTimeout(() => {
+        isCopied = false
+      }, 2000)
+    })
   }
 
   $: {
@@ -45,83 +49,109 @@
     const variablePart = (maxValue - minValue) / (maxViewport - minViewport)
     const constant = toRem(+(maxValue - maxViewport * variablePart))
     // prettier-ignore
-    result = `--variable-value: clamp(${toRem(minValue)}rem, calc(${constant}rem + ${+(100 * variablePart).toFixed(2)}vw), ${toRem(maxValue)}rem)`
+    result = `clamp(${toRem(minValue)}rem, calc(${constant}rem + ${+(100 * variablePart).toFixed(2)}vw), ${toRem(maxValue)}rem)`
   }
 </script>
 
-<div class={styles.wrapper} style={result}>
-  <form on:submit|preventDefault class={styles.inputs}>
-    <div class={styles.unitToggleWrapper}>
-      <label for="unit" class="sr-only">Use rem instead of px</label>
-      <div class={styles.unitToggle} aria-hidden="true">
-        <input
-          type="checkbox"
-          id="unit"
-          on:change={switchUnit}
-          class={styles.unitCheckbox}
-        />
-        <span class={styles.unitToggleBg} />
-        <span class={styles.unitToggleText}>px</span>
-        <span class={styles.unitToggleText}>rem</span>
+<div class={styles.wrapper}>
+  <form on:submit|preventDefault class={styles.form}>
+    <fieldset class={styles.fieldset}>
+      <div class={styles.fieldsetHeader}>
+        <legend class={styles.legend}> Values </legend>
+        <div class={styles.unitToggleWrapper}>
+          <label for="unit" class="sr-only">Use rem instead of px</label>
+          <div class={styles.unitToggle}>
+            <input
+              type="checkbox"
+              id="unit"
+              on:change={switchUnit}
+              class={styles.unitCheckbox}
+            />
+            <span class={styles.unitToggleIndicator} aria-hidden="true" />
+            <span
+              class={styles.unitToggleText}
+              data-active={!isRem}
+              aria-hidden="true">px</span
+            >
+            <span
+              class={styles.unitToggleText}
+              data-active={isRem}
+              aria-hidden="true">rem</span
+            >
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class={styles.input}>
-      <label for="min-value">
-        Min value <br /> <small> (can be negative, e.g. for margins) </small>
-      </label>
-      <div>
-        <input
-          type="number"
-          id="min-value"
-          bind:value={minValue}
-          max={maxValue - 1}
-        />
-        {unit}
+      <div class={styles.inputRow}>
+        <div class={styles.inputWrapper}>
+          <div class={styles.inputInner}>
+            <label class={styles.inputLabel} for="min-value"> Min </label>
+            <input
+              class={styles.input}
+              type="number"
+              id="min-value"
+              bind:value={minValue}
+              max={maxValue - 1}
+              aria-describedby="min-value-description"
+            />
+            <span class={styles.inputUnit}>
+              {unit}
+            </span>
+          </div>
+          <small class={styles.inputDescription} id="min-value-description">
+            can be negative, e.g. for margins or absolute positioning
+          </small>
+        </div>
+        <div class={styles.inputWrapper}>
+          <div class={styles.inputInner}>
+            <label class={styles.inputLabel} for="max-value">Max</label>
+            <input
+              class={styles.input}
+              type="number"
+              id="max-value"
+              min={minValue + 1}
+              bind:value={maxValue}
+            />
+            <span class={styles.inputUnit}>
+              {unit}
+            </span>
+          </div>
+        </div>
       </div>
-    </div>
+    </fieldset>
 
-    <div class={styles.input}>
-      <label for="max-value">Max value</label>
-      <div>
-        <input
-          type="number"
-          id="max-value"
-          min={minValue + 1}
-          bind:value={maxValue}
-        />
-        {unit}
+    <fieldset class={styles.fieldset}>
+      <legend class={styles.legend}> Viewport </legend>
+      <div class={styles.inputRow}>
+        <div class={styles.inputWrapper}>
+          <div class={styles.inputInner}>
+            <label class={styles.inputLabel} for="min-viewport">Min</label>
+            <input
+              class={styles.input}
+              type="number"
+              id="min-viewport"
+              min={0}
+              bind:value={minViewportPx}
+            />
+            <span class={styles.inputUnit}>px</span>
+          </div>
+        </div>
+
+        <div class={styles.inputWrapper}>
+          <div class={styles.inputInner}>
+            <label class={styles.inputLabel} for="max-viewport">Max</label>
+            <input
+              class={styles.input}
+              type="number"
+              id="max-viewport"
+              min={0}
+              bind:value={maxViewportPx}
+            />
+            <span class={styles.inputUnit}>px</span>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <hr />
-
-    <div class={styles.input}>
-      <label for="min-viewport">Min viewport</label>
-      <div>
-        <input
-          type="number"
-          id="min-viewport"
-          min={0}
-          bind:value={minViewportPx}
-        />
-        px
-      </div>
-    </div>
-
-    <div class={styles.input}>
-      <label for="max-viewport">Max viewport</label>
-      <div>
-        <input
-          type="number"
-          id="max-viewport"
-          min={0}
-          bind:value={maxViewportPx}
-        />
-        px
-      </div>
-    </div>
-    <hr />
+    </fieldset>
   </form>
 
   {#if hasError}
@@ -139,21 +169,57 @@
         {/if}
       </ul>
     </div>
-  {:else}
-    <code class={styles.output}>
-      <span class={styles.outputCSS}>
-        {result}
-      </span>
-      <button class={styles.copyButton} on:click={copyToClipboard}>
-        <span class="sr-only">Copy snippet to clipboard</span>
-        <CopyIcon />
-      </button>
+  {/if}
+  <!-- {:else} -->
+  <div class={styles.output}>
+    <code class={styles.outputCSS}>
+      {result}
     </code>
-  {/if}
+    <div class={styles.copyButtonWrapper}>
+      <button
+        class={styles.copyButton}
+        data-copied={isCopied}
+        on:click={copyToClipboard}
+      >
+        <span class={styles.copyButtonTextPlaceholder} aria-hidden="true">
+          copy
+        </span>
+        {#if !isCopied}
+          <span
+            in:fly={{
+              x: -12,
+              opacity: 0,
+              duration: 750,
+              delay: 50,
+              easing: cubicInOut,
+            }}
+            out:fly={{ x: 12, opacity: 0, duration: 750, easing: cubicInOut }}
+            class={styles.copyButtonText}
+          >
+            copy
+          </span>
+        {/if}
+        <span class="sr-only">snippet to clipboard</span>
+      </button>
 
-  {#if !hasError}
-    <div class={styles.box} />
-  {/if}
+      {#if isCopied}
+        <p
+          in:fly={{
+            x: -24,
+            opacity: 0,
+            duration: 750,
+            easing: cubicInOut,
+            delay: 50,
+          }}
+          out:fly={{ x: 24, opacity: 0, duration: 750, easing: cubicInOut }}
+          role="status"
+          class={styles.copySuccess}
+        >
+          <CheckIcon />
+          <span class="sr-only"> Copied to clipboard </span>
+        </p>
+      {/if}
+    </div>
+  </div>
+  <!-- {/if} -->
 </div>
-
-<SvelteToast />

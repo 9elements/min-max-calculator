@@ -1,7 +1,58 @@
 .wrapper {
+  --input-height: 3.75rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  padding: var(--space);
+  background-color: rgb(255 255 255 / 0.05);
+  border-radius: var(--space);
+  background-image: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(148, 88, 88, 0.48) 0%,
+    rgba(148, 88, 88, 0) 100%
+  );
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space);
+
+  @media (--lg) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  /* Shoutout to @shadeed - https://ishadeed.com/article/flexbox-separator/ */
+  &::after {
+    content: "";
+    border: 1px solid rgb(0 0 0 / 0.2);
+    align-self: stretch;
+    order: -1;
+  }
+
+  & > :first-child {
+    order: -1;
+  }
+}
+
+.fieldset {
+  flex: 1;
+  border: none;
+
+  & > * + * {
+    margin-top: var(--space);
+  }
+}
+
+.fieldsetHeader {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.separator {
+  align-self: stretch;
 }
 
 .unitToggleWrapper {
@@ -9,38 +60,45 @@
 }
 
 .unitToggle {
+  --indicator-height: 3px;
   --height: 2.5rem;
   --width: calc(var(--height) * 1.9);
-  --padding: 0.125rem;
-  --items-size: calc(var(--height) - var(--padding) * 2);
 
   position: relative;
   height: var(--height);
   width: var(--width);
-  padding-inline: var(--padding);
   display: inline-grid;
   align-items: center;
   grid-template-columns: repeat(2, 1fr);
-  background-color: rgb(0 0 0 / 0.05);
-  border-radius: 99px;
 
   &,
   & * {
     cursor: pointer;
   }
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-radius: 99px;
+    width: 100%;
+    height: var(--indicator-height);
+    background-color: rgb(255 255 255 / 0.3);
+  }
 }
 
-.unitToggleBg {
+.unitToggleIndicator {
   position: absolute;
   background-color: white;
   align-self: center;
-  left: var(--padding);
-  border-radius: 10rem;
-  height: var(--items-size);
-  width: var(--items-size);
+  left: 0;
+  bottom: 0;
+  height: var(--indicator-height);
+  border-radius: 10px;
+  width: 50%;
   box-shadow: 0 0 0.125rem 0 rgba(0, 0, 0, 0.25);
   transition: transform 0.5s var(--ease-in-out-quint), border-color 0.2s ease;
-  border: 2px solid transparent;
 }
 
 .unitToggleText {
@@ -52,13 +110,11 @@
   justify-content: center;
   font-weight: 600;
   font-size: 0.875rem;
+  transition: color 0.5s var(--ease-in-out-quint), border-color 0.2s ease;
+  color: var(--color-foreground-secondary);
 
-  &:first-of-type {
-    justify-self: start;
-  }
-
-  &:last-of-type {
-    justify-self: end;
+  &[data-active="true"] {
+    color: var(--color-foreground);
   }
 }
 
@@ -71,37 +127,110 @@
   z-index: 10;
 
   &:focus-visible {
-    & + .unitToggleBg {
-      border-color: rgb(0 0 222 / 0.5);
+    & + .unitToggleIndicator {
+      outline: 1px solid var(--color-foreground);
+      outline-offset: 2px;
     }
   }
 
   &:checked {
-    & + .unitToggleBg {
-      transform: translateX(
-        calc(var(--width) - (var(--items-size) + (var(--padding) * 2)))
-      );
+    & + .unitToggleIndicator {
+      transform: translateX(100%);
     }
   }
 }
 
-.inputs {
-  margin-top: 1.5rem;
+.inputWrappers {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.input {
+.legend {
+  height: 2.5rem;
+  display: grid;
+  place-content: center;
+  font-size: var(--font-size-0);
+  font-weight: 700;
+  color: var(--color-orange);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  line-height: 1;
+}
+
+.inputRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 2rem;
+}
+
+.inputWrapper {
+  position: relative;
   display: inline-flex;
   flex-direction: column;
   gap: 0.5rem;
   max-width: 20rem;
+}
 
-  & input {
-    height: 2.5rem;
-    padding-inline: 0.5rem;
+.inputInner {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  gap: 0.75rem;
+}
+
+.inputLabel {
+  text-transform: uppercase;
+}
+
+.input {
+  --bg-hsl: 259 97% 15%;
+  --shadow-hsl: 7 100% 68%;
+
+  appearance: none;
+  min-width: 0;
+  font-weight: 700;
+  border: none;
+  background-color: hsl(var(--bg-hsl) / 0.5);
+  color: var(--color-foreground);
+  height: var(--input-height);
+  border-radius: 99px;
+  padding-inline: 2rem 3rem;
+  transition: box-shadow 0.15s ease-in-out,
+    background-color 0.3s var(--ease-in-out-quad);
+  box-shadow: 0px 0px 2.5rem hsl(var(--shadow-hsl) / 0);
+
+  &:hover,
+  &:focus {
+    background-color: hsl(var(--bg-hsl) / 0.9);
   }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0px 0px 2.5rem hsl(var(--shadow-hsl) / 0.8);
+  }
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+}
+
+.inputUnit {
+  font-size: var(--font-size-0);
+  color: var(--color-foreground-secondary);
+  font-weight: 500;
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+  right: 1.25rem;
+}
+
+.inputDescription {
+  font-size: var(--font-size--1);
+  color: var(--color-foreground-secondary);
+  font-weight: 500;
 }
 
 .inputErrorMessage {
@@ -109,66 +238,86 @@
 }
 
 .output {
+  height: var(--input-height);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  background-color: rgb(0 0 0 / 0.1);
+  background-color: rgb(255 255 255 / 0.1);
+  border-radius: 999px;
   white-space: normal;
   line-height: 1.25;
+  height: ;
+}
+
+.outputCSS {
+  padding: 1rem;
+  user-select: all;
+}
+
+.copyButtonWrapper {
+  position: relative;
+  align-self: stretch;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .copyButton {
-  --size: 2.25rem;
   --offset: 0.25rem;
-  --base-rgb: 0 0 200;
-  --bg-opacity: 0.1;
 
-  border: none;
-  background-color: rgb(var(--base-rgb) / var(--bg-opacity));
-  border-radius: 0.375rem;
-  width: var(--size);
-  height: var(--size);
-  display: inline-flex;
+  color: var(--color-purple);
+  display: flex;
   align-items: center;
   justify-content: center;
-  align-self: flex-start;
-  flex-shrink: 0;
+  position: relative;
+  height: 100%;
+  background-color: var(--color-orange);
+  padding-inline: 2rem;
   transition: background-color 0.2s ease-in-out;
+  border-radius: 999px;
+  font-size: var(--font-size-0);
+  color: var(--color-purple);
+  font-weight: 700;
+  line-height: 1;
 
-  &:hover {
-    --bg-opacity: 0.2;
+  &:focus-visible {
+    outline: 2px solid var(--color-orange);
+    outline-offset: 2px;
   }
+}
 
-  & svg {
-    --size: 1.5rem;
+.copyButtonTextPlaceholder {
+  opacity: 0;
+}
 
-    width: var(--size);
-    height: var(--size);
-    color: rgb(var(--base-rgb) / 0.9);
-  }
+.copyButtonText {
+  display: block;
+  position: absolute;
+}
+
+.copySuccess {
+  position: absolute;
+  display: block;
+  display: grid;
+  place-content: center;
+  border-radius: 99px;
+  width: 3rem;
+  background-image: radial-gradient(
+    var(--color-orange) 0%,
+    hsl(var(--color-orange-hsl) / 0) 100%
+  );
+  user-select: none;
+  pointer-events: none;
 }
 
 .errors {
   background-color: rgb(222 0 0 / 0.15);
   padding: 1rem;
-  border-radius: 0.5rem;
 
   & ul {
     padding-left: 1.5rem;
     margin-top: 0.5rem;
   }
-}
-
-.box {
-  /* width: var(--variable-value);
-  height: var(--variable-value); */
-  width: 4rem;
-  height: 4rem;
-
-  margin-left: var(--variable-value);
-
-  background-color: lightcoral;
 }

@@ -1,11 +1,28 @@
 :root {
-  /* Variables */
+  /* Colors */
+  --color-foreground: hsl(0 0% 100%);
+  --color-foreground-secondary: hsl(0 0% 100% / 0.6);
 
-  /*
-    How-to: custom media queries defined in styles/_media.css
-    @media (--dark) {}
-  */
+  --color-orange-hsl: 7 100% 69%;
+  --color-orange: hsl(var(--color-orange-hsl));
 
+  --color-purple-hsl: 259 81% 28%;
+  --color-purple: hsl(var(--color-purple-hsl));
+
+  /* Spacing */
+  --space: clamp(2rem, calc(1.61rem + 1.95vw), 3rem);
+
+  /* Font-sizes: https://utopia.fyi/type/calculator/?c=375,16,1.125,1140,20,1.333,5,2,&s=0.75%7C0.5%7C0.25,1.5%7C2%7C3%7C4%7C6,s-l */
+  --font-size--2: clamp(0.7rem, calc(0.83rem + -0.18vw), 0.79rem);
+  --font-size--1: clamp(0.89rem, calc(0.86rem + 0.1vw), 0.94rem);
+  --font-size-0: clamp(1rem, calc(0.88rem + 0.52vw), 1.25rem);
+  --font-size-1: clamp(1.13rem, calc(0.86rem + 1.13vw), 1.67rem);
+  --font-size-2: clamp(1.27rem, calc(0.8rem + 2vw), 2.22rem);
+  --font-size-3: clamp(1.42rem, calc(0.67rem + 3.21vw), 2.96rem);
+  --font-size-4: clamp(1.6rem, calc(0.45rem + 4.9vw), 3.95rem);
+  --font-size-5: clamp(1.8rem, calc(0.11rem + 7.23vw), 5.26rem);
+
+  /* Easings: https://gist.github.com/argyleink/36e1c0153d2a783d513bd29c9f25aaf2 */
   --ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
   --ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
   --ease-in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
@@ -24,10 +41,4 @@
   --ease-in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
   --ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
   --ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
-
-  /* Toast adjustments */
-  --toastBackground: #ccebd7;
-  --toastBarBackground: #5bb98c;
-  --toastColor: #153226;
-  --toastBorderRadius: 0.375rem;
 }

@@ -1,3 +1,4 @@
+@custom-media --lg (min-width: 64em);
 @custom-media --dark (prefers-color-scheme: dark);
 @custom-media --reduced-motion (prefers-reduced-motion: reduce);
 @custom-media --more-contrast (prefers-contrast: more);

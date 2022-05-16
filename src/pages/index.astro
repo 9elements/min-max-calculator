@@ -1,7 +1,9 @@
 ---
 import "../styles/vars.css"
 import "../styles/global.css"
-import "../styles/index.css"
+import "../styles/fonts.css"
+
+import styles from "../styles/index.module.css"
 
 import Calculator from "../components/Calculator/index.svelte"
 
@@ -21,9 +23,8 @@ const description = ""
     <meta name="og:description" content={description} />
   </head>
   <body>
-    <header>
-      <!-- header stuff...	 -->
-      <h1>{title}</h1>
+    <header class={styles.header}>
+      <h1 class={styles.headline}>{title}</h1>
     </header>
     <main>
       <Calculator client:load />
@@ -31,5 +32,6 @@ const description = ""
     <footer>
       <!-- Footer stuff... Made with love by 9elements -->
     </footer>
+    <div class="overlay" aria-hidden="true"></div>
   </body>
 </html>

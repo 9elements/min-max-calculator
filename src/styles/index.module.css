@@ -1,0 +1,8 @@
+.header {
+  text-align: center;
+}
+
+.headline {
+  font-size: var(--font-size-4);
+  line-height: 1.15;
+}
