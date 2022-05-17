@@ -198,7 +198,6 @@
   --shadow-hsl: 7 100% 68%;
   flex: 1;
   border: none;
-  -moz-appearance: textfield;
 
   appearance: none;
   background-color: hsl(var(--bg-hsl) / 0.5);
@@ -226,6 +225,10 @@
   &::-webkit-outer-spin-button {
     margin: 0;
     appearance: none;
+  }
+
+  @supports (-moz-appearance: textfield) {
+    -moz-appearance: textfield;
   }
 }
 
