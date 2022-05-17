@@ -1,9 +1,9 @@
 .header {
-  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  text-align: center;
 }
 
 .headline {
@@ -15,15 +15,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75ch;
-  text-decoration: none;
+  background-color: hsl(var(--color-orange-hsl) / 0.1);
+  border-radius: 99px;
   font-size: var(--font-size--1);
   font-weight: 500;
-  border-radius: 99px;
+  gap: 0.75ch;
   padding-block: 0.375em;
-  padding-inline-start: 0.375em;
   padding-inline-end: 0.75em;
-  background-color: hsl(var(--color-orange-hsl) / 0.1);
+  padding-inline-start: 0.375em;
+  text-decoration: none;
   transition: background-color 0.2s ease-in-out;
 
   &:hover,
@@ -38,8 +38,8 @@
 
   & svg {
     --size: 1.5em;
-    width: var(--size);
-    height: var(--size);
+    block-size: var(--size);
+    inline-size: var(--size);
   }
 }
 
@@ -57,16 +57,16 @@
 }
 
 .bgBlur {
+  position: absolute;
+  z-index: -1;
   background: radial-gradient(
     50% 50% at 0% 100%,
     hsl(var(--color-orange-hsl) / 0.2) 0%,
     hsl(var(--color-orange-hsl) / 0) 100%
   );
-  pointer-events: none;
-  inline-size: 90vw;
   block-size: 50vw;
-  position: absolute;
-  inset-inline-start: 0;
+  inline-size: 90vw;
   inset-block-end: 0;
-  z-index: -1;
+  inset-inline-start: 0;
+  pointer-events: none;
 }
