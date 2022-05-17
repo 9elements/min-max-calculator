@@ -211,8 +211,7 @@
   transition: box-shadow 0.3s ease-in-out,
     background-color 0.3s var(--ease-in-out-quad);
 
-  &:hover,
-  &:focus {
+  &:is(:hover, :focus) {
     background-color: hsl(var(--bg-hsl) / 0.9);
   }
 

@@ -26,8 +26,7 @@
   text-decoration: none;
   transition: background-color 0.2s ease-in-out;
 
-  &:hover,
-  &:focus-visible {
+  &:is(:hover, :focus-visible) {
     background-color: hsl(var(--color-orange-hsl) / 0.2);
   }
 
