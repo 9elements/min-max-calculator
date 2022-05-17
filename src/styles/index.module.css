@@ -1,10 +1,46 @@
 .header {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 .headline {
   font-size: var(--font-size-5);
   line-height: 1.15;
+}
+
+.githubLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75ch;
+  text-decoration: none;
+  font-size: var(--font-size--1);
+  font-weight: 500;
+  border-radius: 99px;
+  padding-block: 0.375em;
+  padding-inline-start: 0.375em;
+  padding-inline-end: 0.75em;
+  background-color: hsl(var(--color-orange-hsl) / 0.1);
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover,
+  &:focus-visible {
+    background-color: hsl(var(--color-orange-hsl) / 0.2);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-orange);
+    outline-offset: ;
+  }
+
+  & svg {
+    --size: 1.5em;
+    width: var(--size);
+    height: var(--size);
+  }
 }
 
 .overlay {

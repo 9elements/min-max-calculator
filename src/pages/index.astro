@@ -8,6 +8,7 @@ import styles from "../styles/index.module.css"
 import Calculator from "../components/Calculator/Calculator.svelte"
 import Info from "../components/Info/Info.astro"
 import Footer from "../components/Footer/Footer.astro"
+import GitHubIcon from "../components/Icons/GitHub.svelte"
 
 //  TODO: Proper title and description
 const title = "Min-Max-Calculator"
@@ -27,6 +28,15 @@ const description = ""
   <body>
     <header class={styles.header}>
       <h1 class={styles.headline}>{title}</h1>
+      <a
+        href="https://github.com/9elements/min-max-calculator"
+        class={styles.githubLink}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <GitHubIcon />
+        View on GitHub
+      </a>
     </header>
 
     <main>

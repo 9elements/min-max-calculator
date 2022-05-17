@@ -154,7 +154,7 @@
 
   {#if hasError}
     <div class={styles.errors}>
-      <strong>Oh no, there are errors </strong>
+      <strong>Oh no, there are errors: </strong>
       <ul>
         {#if minValue > maxValue}
           <li>Min value must be less than max value</li>

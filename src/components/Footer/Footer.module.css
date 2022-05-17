@@ -3,7 +3,7 @@
   padding-inline: var(--space);
   padding-block: var(--space);
   font-size: var(--font-size-0);
-  border-top: 1px solid rgb(255 255 255 / 0.15);
+  border-block-start: 1px solid rgb(255 255 255 / 0.15);
   color: var(--color-foreground-secondary);
   line-height: 1.3;
   text-align: center;

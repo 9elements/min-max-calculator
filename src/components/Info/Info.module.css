@@ -20,7 +20,7 @@
     font-size: var(--font-size-1);
 
     & + p {
-      margin-top: 1.5em;
+      margin-block-start: 1.5em;
     }
   }
 }

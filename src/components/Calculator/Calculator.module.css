@@ -100,7 +100,7 @@
   border-radius: 10px;
   width: 50%;
   box-shadow: 0 0 0.125rem 0 rgba(0, 0, 0, 0.25);
-  transition: transform 0.5s var(--ease-in-out-quint), border-color 0.2s ease;
+  transition: transform 0.4s var(--ease-in-out-expo), background-color 0.2s ease;
 }
 
 .unitToggleText {
@@ -127,6 +127,12 @@
   width: 100%;
   height: 100%;
   z-index: 10;
+
+  &:hover {
+    & + .unitToggleIndicator {
+      background-color: var(--color-orange);
+    }
+  }
 
   &:focus-visible {
     & + .unitToggleIndicator {
@@ -259,8 +265,8 @@
 }
 
 .outputCSS {
-  padding-inline: 1.5em;
-  padding-block: 1.25rem;
+  padding-inline: 1.75em;
+  padding-block: 1.25em;
   user-select: all;
   font-weight: 700;
 }
@@ -346,11 +352,11 @@
   font-size: var(--font-size-0);
   padding: 1.5em;
   border-radius: calc(var(--input-height) / 2);
-  background-color: rgb(222 0 0 / 0.15);
+  background-color: rgb(222 0 0 / 0.2);
 
   & ul {
     margin-block-start: 0.5em;
-    margin-left: 1.25em;
+    margin-inline-start: 1.25em;
 
     & li + li {
       margin-block-start: 0.5em;
