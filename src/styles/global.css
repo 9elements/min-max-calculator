@@ -16,6 +16,7 @@ body {
 }
 
 html {
+  position: relative;
   background: radial-gradient(
     51.98% 51.98% at 75.49% 26.72%,
     #330e82 0%,

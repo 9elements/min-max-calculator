@@ -59,6 +59,8 @@
 
 .unitToggleWrapper {
   position: relative;
+  font-size: var(--font-size--1);
+  top: -0.25em;
 }
 
 .unitToggle {
@@ -111,7 +113,6 @@
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  font-size: 0.875rem;
   transition: color 0.5s var(--ease-in-out-quint), border-color 0.2s ease;
   color: var(--color-foreground-secondary);
 
@@ -282,7 +283,6 @@
 
 .copyButton {
   --offset: 0.25rem;
-
   display: flex;
   align-items: center;
   justify-content: center;

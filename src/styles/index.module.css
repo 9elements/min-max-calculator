@@ -33,7 +33,7 @@
 
   &:focus-visible {
     outline: 2px solid var(--color-orange);
-    outline-offset: ;
+    outline-offset: 2px;
   }
 
   & svg {
@@ -54,4 +54,19 @@
   opacity: 0.2;
   pointer-events: none;
   user-select: none;
+}
+
+.bgBlur {
+  background: radial-gradient(
+    50% 50% at 0% 100%,
+    hsl(var(--color-orange-hsl) / 0.2) 0%,
+    hsl(var(--color-orange-hsl) / 0) 100%
+  );
+  pointer-events: none;
+  inline-size: 90vw;
+  block-size: 50vw;
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-end: 0;
+  z-index: -1;
 }
