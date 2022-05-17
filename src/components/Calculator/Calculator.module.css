@@ -204,6 +204,7 @@
   transition: box-shadow 0.3s ease-in-out,
     background-color 0.3s var(--ease-in-out-quad);
   -moz-appearance: textfield;
+  box-shadow: 0px 0px 2.5rem hsl(var(--shadow-hsl) / 0);
 
   &:hover,
   &:focus {
@@ -211,6 +212,7 @@
   }
 
   &:focus {
+    box-shadow: 0px 0px 2.5rem hsl(var(--shadow-hsl) / 0.8);
     outline: none;
   }
 
@@ -239,6 +241,7 @@
 
 .output {
   --min-height: 4.5rem;
+
   min-height: var(--min-height);
   display: flex;
   flex-direction: column;
@@ -259,6 +262,7 @@
   padding-inline: 1.5em;
   padding-block: 1.25rem;
   user-select: all;
+  font-weight: 700;
 }
 
 .copyButtonWrapper {
@@ -288,6 +292,10 @@
   font-weight: 700;
   line-height: 1;
   transition: box-shadow 0.3s ease-in-out;
+
+  & ::selection {
+    background: hsl(var(--color-purple-hsl) / 0.4);
+  }
 
   &:hover {
     box-shadow: 0px 0px 2rem hsl(var(--color-orange-hsl) / 0.7);

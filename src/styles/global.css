@@ -29,7 +29,7 @@ body {
   color: var(--color-foreground);
   max-width: 66rem;
   padding-inline: 1rem;
-  padding-block: calc(var(--space) * 2);
+  padding-block-start: calc(var(--space) * 2);
   margin-inline: auto;
   display: flex;
   flex-direction: column;
@@ -60,6 +60,11 @@ button {
   font-family: inherit;
 }
 
+::selection {
+  background: hsl(var(--color-orange-hsl) / 0.4);
+  color: var(--color-foreground);
+}
+
 @media (--reduced-motion) {
   *,
   *::before,
@@ -69,22 +74,4 @@ button {
     transition-duration: 0.01s !important;
     scroll-behavior: auto !important;
   }
-}
-
-/* Overlay */
-.overlay {
-  position: fixed;
-  z-index: 999;
-  background-image: url("/img/grain.png");
-  background-repeat: repeat;
-  background-size: 22rem 30rem;
-  inset: 0;
-  mix-blend-mode: multiply;
-  opacity: 0.2;
-  pointer-events: none;
-  user-select: none;
-}
-
-.st-toast-body {
-  align-items: center;
 }

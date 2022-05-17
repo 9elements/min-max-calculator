@@ -3,6 +3,7 @@
   padding-inline: var(--space);
   display: grid;
   gap: var(--space);
+  align-items: start;
 
   @media (--md) {
     grid-template-columns: 25ch 1fr;
