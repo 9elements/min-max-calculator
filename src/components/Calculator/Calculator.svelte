@@ -2,7 +2,7 @@
   import { fly } from "svelte/transition"
   import { cubicInOut } from "svelte/easing"
   import CheckIcon from "../Icons/Check.svelte"
-  import styles from "./styles.module.css"
+  import styles from "./Calculator.module.css"
 
   let unit = "px" // or "rem"
   $: isRem = unit === "rem"
@@ -53,7 +53,7 @@
   }
 </script>
 
-<div class={styles.wrapper}>
+<section class={styles.wrapper}>
   <form on:submit|preventDefault class={styles.form}>
     <fieldset class={styles.fieldset}>
       <div class={styles.fieldsetHeader}>
@@ -91,7 +91,6 @@
               type="number"
               id="min-value"
               bind:value={minValue}
-              max={maxValue - 1}
               aria-describedby="min-value-description"
             />
             <span class={styles.inputUnit}>
@@ -109,7 +108,6 @@
               class={styles.input}
               type="number"
               id="max-value"
-              min={minValue + 1}
               bind:value={maxValue}
             />
             <span class={styles.inputUnit}>
@@ -170,7 +168,6 @@
       </ul>
     </div>
   {/if}
-  <!-- {:else} -->
   <div class={styles.output}>
     <code class={styles.outputCSS}>
       {result}
@@ -187,13 +184,13 @@
         {#if !isCopied}
           <span
             in:fly={{
-              x: -12,
+              x: -10,
               opacity: 0,
-              duration: 750,
+              duration: 600,
               delay: 50,
               easing: cubicInOut,
             }}
-            out:fly={{ x: 12, opacity: 0, duration: 750, easing: cubicInOut }}
+            out:fly={{ x: 10, opacity: 0, duration: 600, easing: cubicInOut }}
             class={styles.copyButtonText}
           >
             copy
@@ -205,13 +202,13 @@
       {#if isCopied}
         <p
           in:fly={{
-            x: -24,
+            x: -20,
             opacity: 0,
-            duration: 750,
+            duration: 600,
             easing: cubicInOut,
             delay: 50,
           }}
-          out:fly={{ x: 24, opacity: 0, duration: 750, easing: cubicInOut }}
+          out:fly={{ x: 20, opacity: 0, duration: 600, easing: cubicInOut }}
           role="status"
           class={styles.copySuccess}
         >
@@ -221,5 +218,4 @@
       {/if}
     </div>
   </div>
-  <!-- {/if} -->
-</div>
+</section>

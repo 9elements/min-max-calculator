@@ -1,5 +1,6 @@
 .wrapper {
   --input-height: 3.75rem;
+
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -37,11 +38,12 @@
 }
 
 .fieldset {
+  --height: 2.5rem;
   flex: 1;
   border: none;
 
   & > * + * {
-    margin-top: var(--space);
+    margin-block-start: var(--space);
   }
 }
 
@@ -61,9 +63,9 @@
 
 .unitToggle {
   --indicator-height: 3px;
-  --height: 2.5rem;
   --width: calc(var(--height) * 1.9);
 
+  height: var(--height);
   position: relative;
   height: var(--height);
   width: var(--width);
@@ -79,8 +81,8 @@
   &::after {
     content: "";
     position: absolute;
-    left: 0;
-    bottom: 0;
+    inset-inline-start: 0;
+    inset-block-end: 0;
     border-radius: 99px;
     width: 100%;
     height: var(--indicator-height);
@@ -92,8 +94,8 @@
   position: absolute;
   background-color: white;
   align-self: center;
-  left: 0;
-  bottom: 0;
+  inset-inline-start: 0;
+  inset-block-end: 0;
   height: var(--indicator-height);
   border-radius: 10px;
   width: 50%;
@@ -147,7 +149,7 @@
 }
 
 .legend {
-  height: 2.5rem;
+  height: var(--height);
   display: grid;
   place-content: center;
   font-size: var(--font-size-0);
@@ -168,8 +170,9 @@
   position: relative;
   display: inline-flex;
   flex-direction: column;
-  gap: 0.5rem;
   max-width: 20rem;
+  gap: 0.5rem;
+  font-size: var(--font-size-0);
 }
 
 .inputInner {
@@ -181,6 +184,7 @@
 
 .inputLabel {
   text-transform: uppercase;
+  flex-basis: 3.5ch;
 }
 
 .input {
@@ -189,16 +193,17 @@
 
   appearance: none;
   min-width: 0;
+  flex: 1;
   font-weight: 700;
   border: none;
   background-color: hsl(var(--bg-hsl) / 0.5);
   color: var(--color-foreground);
   height: var(--input-height);
   border-radius: 99px;
-  padding-inline: 2rem 3rem;
-  transition: box-shadow 0.15s ease-in-out,
+  padding-inline: 1.25em 3em;
+  transition: box-shadow 0.3s ease-in-out,
     background-color 0.3s var(--ease-in-out-quad);
-  box-shadow: 0px 0px 2.5rem hsl(var(--shadow-hsl) / 0);
+  -moz-appearance: textfield;
 
   &:hover,
   &:focus {
@@ -207,7 +212,6 @@
 
   &:focus {
     outline: none;
-    box-shadow: 0px 0px 2.5rem hsl(var(--shadow-hsl) / 0.8);
   }
 
   &::-webkit-inner-spin-button,
@@ -224,7 +228,7 @@
   user-select: none;
   pointer-events: none;
   position: absolute;
-  right: 1.25rem;
+  inset-inline-end: 1em;
 }
 
 .inputDescription {
@@ -233,25 +237,27 @@
   font-weight: 500;
 }
 
-.inputErrorMessage {
-  color: rgb(222 0 0 / 1);
-}
-
 .output {
-  height: var(--input-height);
+  --min-height: 4.5rem;
+  min-height: var(--min-height);
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  flex-direction: column;
+  align-items: stretch;
   background-color: rgb(255 255 255 / 0.1);
-  border-radius: 999px;
+  border-radius: calc(var(--min-height) / 2);
   white-space: normal;
   line-height: 1.25;
-  height: ;
+
+  @media (--md) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
 .outputCSS {
-  padding: 1rem;
+  padding-inline: 1.5em;
+  padding-block: 1.25rem;
   user-select: all;
 }
 
@@ -267,12 +273,12 @@
 .copyButton {
   --offset: 0.25rem;
 
-  color: var(--color-purple);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  height: 100%;
+  height: var(--input-height);
+  width: 100%;
   background-color: var(--color-orange);
   padding-inline: 2rem;
   transition: background-color 0.2s ease-in-out;
@@ -281,10 +287,19 @@
   color: var(--color-purple);
   font-weight: 700;
   line-height: 1;
+  transition: box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: 0px 0px 2rem hsl(var(--color-orange-hsl) / 0.7);
+  }
 
   &:focus-visible {
     outline: 2px solid var(--color-orange);
     outline-offset: 2px;
+  }
+
+  @media (--md) {
+    height: 100%;
   }
 }
 
@@ -305,19 +320,32 @@
   border-radius: 99px;
   width: 3rem;
   background-image: radial-gradient(
-    var(--color-orange) 0%,
+    var(--color-orange) 20%,
     hsl(var(--color-orange-hsl) / 0) 100%
   );
   user-select: none;
   pointer-events: none;
+  z-index: 2;
+
+  & svg {
+    --size: 2rem;
+    width: var(--size);
+    height: var(--size);
+  }
 }
 
 .errors {
+  font-size: var(--font-size-0);
+  padding: 1.5em;
+  border-radius: calc(var(--input-height) / 2);
   background-color: rgb(222 0 0 / 0.15);
-  padding: 1rem;
 
   & ul {
-    padding-left: 1.5rem;
-    margin-top: 0.5rem;
+    margin-block-start: 0.5em;
+    margin-left: 1.25em;
+
+    & li + li {
+      margin-block-start: 0.5em;
+    }
   }
 }

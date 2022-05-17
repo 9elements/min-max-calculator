@@ -5,7 +5,8 @@ import "../styles/fonts.css"
 
 import styles from "../styles/index.module.css"
 
-import Calculator from "../components/Calculator/index.svelte"
+import Calculator from "../components/Calculator/Calculator.svelte"
+import Info from "../components/Info/Info.astro"
 
 //  TODO: Proper title and description
 const title = "Min-Max-Calculator"
@@ -15,7 +16,7 @@ const description = ""
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <title>{title}</title>
     <meta name="title" content={title} />
@@ -28,6 +29,7 @@ const description = ""
     </header>
     <main>
       <Calculator client:load />
+      <Info />
     </main>
     <footer>
       <!-- Footer stuff... Made with love by 9elements -->

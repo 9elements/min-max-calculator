@@ -10,17 +10,17 @@
   --color-purple: hsl(var(--color-purple-hsl));
 
   /* Spacing */
-  --space: clamp(2rem, calc(1.61rem + 1.95vw), 3rem);
+  --space: clamp(1.5rem, calc(0.91rem + 2.93vw), 3rem);
 
-  /* Font-sizes: https://utopia.fyi/type/calculator/?c=375,16,1.125,1140,20,1.333,5,2,&s=0.75%7C0.5%7C0.25,1.5%7C2%7C3%7C4%7C6,s-l */
-  --font-size--2: clamp(0.7rem, calc(0.83rem + -0.18vw), 0.79rem);
-  --font-size--1: clamp(0.89rem, calc(0.86rem + 0.1vw), 0.94rem);
-  --font-size-0: clamp(1rem, calc(0.88rem + 0.52vw), 1.25rem);
-  --font-size-1: clamp(1.13rem, calc(0.86rem + 1.13vw), 1.67rem);
-  --font-size-2: clamp(1.27rem, calc(0.8rem + 2vw), 2.22rem);
-  --font-size-3: clamp(1.42rem, calc(0.67rem + 3.21vw), 2.96rem);
-  --font-size-4: clamp(1.6rem, calc(0.45rem + 4.9vw), 3.95rem);
-  --font-size-5: clamp(1.8rem, calc(0.11rem + 7.23vw), 5.26rem);
+  /* Font-sizes: https://utopia.fyi/type/calculator/?c=375,16,1.25,1280,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l */
+  --font-size--2: clamp(0.64rem, calc(0.57rem + 0.28vw), 0.8rem);
+  --font-size--1: clamp(0.8rem, calc(0.72rem + 0.35vw), 1rem);
+  --font-size-0: clamp(1rem, calc(0.9rem + 0.44vw), 1.25rem);
+  --font-size-1: clamp(1.25rem, calc(1.12rem + 0.55vw), 1.56rem);
+  --font-size-2: clamp(1.56rem, calc(1.4rem + 0.69vw), 1.95rem);
+  --font-size-3: clamp(1.95rem, calc(1.75rem + 0.86vw), 2.44rem);
+  --font-size-4: clamp(2.44rem, calc(2.19rem + 1.08vw), 3.05rem);
+  --font-size-5: clamp(3.05rem, calc(2.74rem + 1.35vw), 3.82rem);
 
   /* Easings: https://gist.github.com/argyleink/36e1c0153d2a783d513bd29c9f25aaf2 */
   --ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);

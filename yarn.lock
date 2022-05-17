@@ -608,11 +608,6 @@
     vscode-nls "^5.0.0"
     vscode-uri "^2.1.2"
 
-"@zerodevx/svelte-toast@^0.7.1":
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/@zerodevx/svelte-toast/-/svelte-toast-0.7.1.tgz#99b1b05473aff42e9aaa6c2c66b22ffa6fb174bc"
-  integrity sha512-JxyjPlpc3IzwyHLGbU5pDPW68HM1o7FjiSWmm9SIig7NuuBFIqoJkVt9CYr6toAXzi5sLBgu27hT1NntKbKcmA==
-
 acorn@^8.7.0:
   version "8.7.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.7.1.tgz#0197122c843d1bf6d0a5e83220a788f278f63c30"
