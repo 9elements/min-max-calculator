@@ -23,4 +23,12 @@
       margin-block-start: 1.5em;
     }
   }
+
+  & a {
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+      color: var(--color-orange);
+    }
+  }
 }

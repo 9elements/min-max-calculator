@@ -13,19 +13,11 @@
   text-align: center;
 
   & a {
-    display: inline-block;
-    border-radius: 0.125rem;
-    color: var(--color-foreground);
-    text-decoration: none;
     transition: color 0.2s ease-in-out;
 
     &:hover {
+      color: var(--color-foreground);
       text-decoration: underline;
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--color-orange);
-      outline-offset: 2px;
     }
   }
 
@@ -41,9 +33,9 @@
   margin-inline-end: 0.25ch;
 }
 
-.highlight {
+/* .highlight {
   color: var(--color-foreground);
-}
+} */
 
 .links {
   display: flex;

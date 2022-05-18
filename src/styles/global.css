@@ -50,8 +50,15 @@ body {
 }
 
 a {
+  display: inline-block;
+  border-radius: 0.25rem;
   color: inherit;
   text-decoration: underline;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-orange);
+    outline-offset: 2px;
+  }
 }
 
 button {
