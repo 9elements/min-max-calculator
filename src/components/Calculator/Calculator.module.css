@@ -16,20 +16,17 @@
 
 .form {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: var(--space);
 
-  @media (--lg) {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  /* Shoutout to @shadeed - https://ishadeed.com/article/flexbox-separator/ */
   &::after {
-    align-self: stretch;
+    flex-basis: 1px;
+    flex-grow: 1;
     order: -1;
-    border: 1px solid rgb(0 0 0 / 0.2);
+    background-color: rgb(0 0 0 / 0.3);
+    border-radius: 1rem;
     content: "";
+    min-block-size: 1px;
   }
 
   & > :first-child {
@@ -39,7 +36,8 @@
 
 .fieldset {
   --height: 2.5rem;
-  flex: 1;
+  flex-basis: calc((56rem - 100%) * 999);
+  flex-grow: 999;
   border: none;
 
   & > * + * {
@@ -250,23 +248,21 @@
 .output {
   --min-height: 4.5rem;
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  flex-wrap: wrap;
   background-color: rgb(255 255 255 / 0.1);
   border-radius: calc(var(--min-height) / 2);
   line-height: 1.25;
 
   min-block-size: var(--min-height);
   white-space: normal;
-
-  @media (--md) {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
 }
 
 .outputCSS {
+  display: flex;
+  flex-basis: 40ch;
+  flex-grow: 999;
+  align-items: center;
+  padding: 1rem;
   font-weight: 700;
   padding-block: 1.25em;
   padding-inline: 1.75em;
@@ -276,6 +272,7 @@
 .copyButtonWrapper {
   position: relative;
   display: flex;
+  flex-grow: 1;
   flex-shrink: 0;
   align-items: center;
   align-self: stretch;
@@ -289,13 +286,14 @@
   align-items: center;
   justify-content: center;
   background-color: var(--color-orange);
-  block-size: var(--input-height);
+  block-size: 100%;
   border-radius: 999px;
   color: var(--color-purple);
   font-size: var(--font-size-0);
   font-weight: 700;
   inline-size: 100%;
   line-height: 1;
+  min-block-size: var(--input-height);
   padding-inline: 2rem;
   transition: background-color 0.2s ease-in-out;
   transition: box-shadow 0.3s ease-in-out;
@@ -311,10 +309,6 @@
   &:focus-visible {
     outline: 2px solid var(--color-orange);
     outline-offset: 2px;
-  }
-
-  @media (--md) {
-    block-size: 100%;
   }
 }
 
