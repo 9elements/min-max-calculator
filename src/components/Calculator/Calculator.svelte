@@ -10,10 +10,10 @@
   const toPx = (value) => +(isRem ? value * 16 : value)?.toFixed(3)
   const switchToCurrentValue = (value) => (isRem ? toRem(value) : toPx(value))
 
-  let minValue = 24
-  let maxValue = 80
-  let minViewportPx = 500
-  let maxViewportPx = 1000
+  let minValue = 16
+  let maxValue = 24
+  let minViewportPx = 320
+  let maxViewportPx = 1200
   $: minViewport = switchToCurrentValue(minViewportPx)
   $: maxViewport = switchToCurrentValue(maxViewportPx)
 
@@ -54,7 +54,7 @@
     const variablePart = (maxValuePx - minValuePx) / (maxViewport - minViewport)
     const constant = ((+(maxValuePx - (maxViewport * variablePart))) / 16).toFixed(3)
     // prettier-ignore
-    result = `clamp(${toRem(minValue)}rem, calc(${constant}rem + ${+(100 * variablePart).toFixed(2)}vw), ${toRem(maxValue)}rem)`
+    result = `clamp(${toRem(minValue)}rem, ${constant}rem + ${+(100 * variablePart).toFixed(2)}vw, ${toRem(maxValue)}rem)`
   }
 </script>
 
@@ -240,3 +240,12 @@
     </div>
   </div>
 </section>
+
+<details class={styles.liveExample} style="--variable-value: {result}">
+  <summary>Live font-size example</summary>
+  <p style="font-size:var(--variable-value)" contenteditable="true">
+    This text uses the calculated clamp formula.
+    It gets invisible when you use 0 or negative numbers as a min-value.
+    Try editing it, though...
+  </p>
+</details>

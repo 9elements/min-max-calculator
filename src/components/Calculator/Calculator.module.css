@@ -235,6 +235,7 @@
   flex-wrap: wrap;
   background-color: rgb(255 255 255 / 0.1);
   border-radius: calc(var(--min-height) / 2);
+  font-size: var(--font-size-0);
   line-height: 1.25;
 
   min-block-size: var(--min-height);
@@ -339,5 +340,52 @@
     & li + li {
       margin-block-start: 0.5em;
     }
+  }
+}
+
+.liveExample {
+  margin-block-end: var(--space);
+
+  & summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    cursor: pointer;
+    background: var(--color-orange);
+    color: var(--color-purple);
+    font-size: var(--font-size--1);
+    font-weight: 700;
+    width: max-content;
+    padding: 0.5em 1em;
+    border-radius: 999rem;
+    margin-inline: auto;
+    margin-block-end: -1em;
+    margin-block-start: 1rem;
+    position: relative;
+    z-index: 2;
+
+    &::before {
+      content: "";
+      display: block;
+      width: 0;
+      height: 0;
+      border-width: 0.5em 0.375em 0;
+      border-style: solid;
+      border-color: transparent;
+      border-block-start-color: var(--color-purple);
+    }
+  }
+
+  &[open] summary::before {
+    border-width: 0 0.375em 0.5em;
+    border-block-start-color: transparent;
+    border-block-end-color: var(--color-purple);
+  }
+
+  & p {
+    background: rgb(255 255 255 / 0.05);
+    padding: var(--space);
+    border-radius: var(--space);
+    line-height: 1.4;
   }
 }
