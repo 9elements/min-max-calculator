@@ -1,19 +1,24 @@
 .info {
-  display: grid;
-  align-items: start;
+  display: flex;
+  flex-wrap: wrap;
+
   gap: var(--space);
   padding-block-start: var(--space);
   padding-inline: var(--space);
 
-  @media (--md) {
-    grid-template-columns: 25ch 1fr;
-  }
-
   & h2 {
+    flex-basis: 10ch;
+    flex-grow: 1;
     color: var(--color-orange);
     font-size: var(--font-size-4);
     line-height: 1.15;
   }
+}
+
+.content {
+  flex-basis: 30ch;
+  flex-grow: 999;
+  font-size: clamp(1.25rem, calc(1.12rem + 0.55vw), 1.56rem);
 
   & p {
     font-size: var(--font-size-1);
@@ -25,10 +30,7 @@
   }
 
   & a {
+    color: var(--color-orange);
     transition: color 0.2s ease-in-out;
-
-    &:hover {
-      color: var(--color-orange);
-    }
   }
 }
