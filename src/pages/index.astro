@@ -8,6 +8,7 @@ import styles from "../styles/index.module.css"
 import Calculator from "../components/Calculator/Calculator.svelte"
 import Info from "../components/Info/Info.astro"
 import Footer from "../components/Footer/Footer.astro"
+import Examples from "../components/Examples/Examples.astro"
 import GitHubIcon from "../components/Icons/GitHub.svelte"
 
 //  TODO: Proper title and description
@@ -62,6 +63,7 @@ const metaImage = `${Astro.site}img/social-share.png`
     <main>
       <Calculator client:load />
       <Info />
+      <Examples />
     </main>
 
     <Footer />
