@@ -10,6 +10,7 @@
     flex-basis: 10ch;
     flex-grow: 1;
     color: var(--color-orange);
+    font-feature-settings: var(--headline-font-features);
     font-size: var(--font-size-4);
     line-height: 1.15;
   }
