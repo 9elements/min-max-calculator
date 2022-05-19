@@ -1,5 +1,5 @@
 .footer {
-  /* Based on holy albatross logic for wrapping: https://codepen.io/enbee81/pen/qBbdarL */
+  /* Based on Devil's Albatross logic for wrapping: https://9elements.com/blog/the-devils-albatros-an-algorithmic-layout-technique/ */
   --multiplier: calc((var(--centerflex-threshold, 38rem) - 100%) * 666);
 
   display: flex;
@@ -8,7 +8,6 @@
   border-block-start: 1px solid rgb(255 255 255 / 0.15);
   color: var(--color-foreground-secondary);
   font-size: var(--font-size-0);
-  gap: 1rem;
   line-height: 1.3;
   margin-block-start: var(--space);
   padding-block: var(--space);
