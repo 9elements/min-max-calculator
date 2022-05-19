@@ -1,5 +1,7 @@
 # <img alt="Min-Max-Value Interpolation" src="public/img/social-share.png" />
 
+A tool that calculates the CSS clamp formula to interpolate between two values in a given viewport range.
+
 > Made with [Astro](https://astro.build), [Svelte](https://svelte.dev) and [PostCSS](https://postcss.org).
 
 ## Local setup
