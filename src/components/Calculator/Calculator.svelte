@@ -17,8 +17,13 @@
   $: minViewport = switchToCurrentValue(minViewportPx)
   $: maxViewport = switchToCurrentValue(maxViewportPx)
 
-  $: hasError = minValue > maxValue || maxViewportPx < 1 || minViewportPx < 0
+  $: hasError =
+    minValue > maxValue ||
+    maxViewportPx < 1 ||
+    minViewportPx < 0 ||
+    minViewportPx >= maxViewportPx
   $: hasNegative = minViewportPx < 0 || maxViewportPx < 1
+  $: isMinViewPortGreaterThanMaxViewPort = minViewportPx >= maxViewportPx
 
   let result
   let isCopied = false
@@ -176,6 +181,9 @@
             Please make sure all the viewport values are positive numbers and
             the max viewport is greater than 0
           </li>
+        {/if}
+        {#if isMinViewPortGreaterThanMaxViewPort}
+          <li>Min viewport must be less than max viewport</li>
         {/if}
       </ul>
     </div>
