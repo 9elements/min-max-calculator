@@ -62,13 +62,9 @@
 
         <fieldset class={styles.unitToggle}>
           <legend class="sr-only">Switch unit</legend>
-          <label
-            for="unit-px"
-            class={styles.unitLabel}
-            data-active={!isRem}
-            aria-label="Pixel"
-          >
-            px
+          <label for="unit-px" class={styles.unitLabel} data-active={!isRem}>
+            <span class="sr-only">Pixel</span>
+            <span aria-hidden="true"> px</span>
             <input
               type="radio"
               id="unit-px"

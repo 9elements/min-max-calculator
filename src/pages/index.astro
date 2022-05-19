@@ -11,11 +11,10 @@ import Footer from "../components/Footer/Footer.astro"
 import GitHubIcon from "../components/Icons/GitHub.svelte"
 
 //  TODO: Proper title and description
-const siteURL = "https://9elements.com/min-max-calculator"
 const title = "Min-Max-Value Interpolation"
 const description =
   "A tool that calculates the CSS clamp formula to interpolate between two values in a given viewport range."
-const metaImage = `${siteURL}/img/social-share.png`
+const metaImage = `${Astro.site}img/social-share.png`
 ---
 
 <html lang="en">
@@ -30,13 +29,13 @@ const metaImage = `${siteURL}/img/social-share.png`
     <meta name="description" content={description} />
 
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={siteURL} />
+    <meta property="og:url" content={Astro.site} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={metaImage} />
 
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={siteURL} />
+    <meta property="twitter:url" content={Astro.site} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={metaImage} />
