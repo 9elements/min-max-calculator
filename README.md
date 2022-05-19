@@ -24,4 +24,4 @@ yarn dev
 yarn build
 ```
 
-The output
+The output will be in the `dist` folder.
