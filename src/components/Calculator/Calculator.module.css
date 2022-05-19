@@ -345,6 +345,13 @@
 
 .liveExample {
   margin-block-end: var(--space);
+  margin-block-start: 1rem;
+  transform: translateY(calc(-1rem - 1em));
+  transition: transform 0.4s var(--ease-out-quad);
+
+  &[open] {
+    transform: translate(0);
+  }
 
   & summary {
     display: flex;
@@ -360,9 +367,13 @@
     border-radius: 999rem;
     margin-inline: auto;
     margin-block-end: -1em;
-    margin-block-start: 1rem;
     position: relative;
     z-index: 2;
+
+    &:focus-visible {
+      outline: 2px solid var(--color-orange);
+      outline-offset: 2px;
+    }
 
     &::before {
       content: "";
@@ -373,13 +384,13 @@
       border-style: solid;
       border-color: transparent;
       border-block-start-color: var(--color-purple);
+      border-block-end-color: var(--color-purple);
+      transition: transform 0.4s ease-out;
     }
   }
 
   &[open] summary::before {
-    border-width: 0 0.375em 0.5em;
-    border-block-start-color: transparent;
-    border-block-end-color: var(--color-purple);
+    transform: rotate(180deg);
   }
 
   & p {
