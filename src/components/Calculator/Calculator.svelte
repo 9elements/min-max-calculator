@@ -6,8 +6,8 @@
 
   let unit = "px" // or "rem"
   $: isRem = unit === "rem"
-  const toRem = (value) => +(isRem ? value : value / 16).toFixed(3)
-  const toPx = (value) => +(isRem ? value * 16 : value).toFixed(3)
+  const toRem = (value) => +(isRem ? value : value / 16)?.toFixed(3)
+  const toPx = (value) => +(isRem ? value * 16 : value)?.toFixed(3)
   const switchToCurrentValue = (value) => (isRem ? toRem(value) : toPx(value))
 
   let minValue = 24

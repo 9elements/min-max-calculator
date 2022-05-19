@@ -2,4 +2,4 @@ At [9elements](https://9elements.com), we use [Utopia](https://utopia.fyi) in ma
 
 Sometimes you don’t need a whole token system but a single interpolation between two values in a viewport range. That’s why we created this tool to help you with just that.
 
-**Bonus:** You may use negative values for the min-value. That may be needed in rare situations for margins or absolute positioning.
+**Bonus:** You can use negative values for the min-value. That may be needed in rare situations for margins or absolute positioning.
