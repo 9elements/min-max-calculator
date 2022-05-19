@@ -36,8 +36,6 @@
 
     minValue = switchValue(minValue)
     maxValue = switchValue(maxValue)
-    minViewport = switchValue(minViewport)
-    maxViewport = switchValue(maxViewport)
   }
 
   const copyToClipboard = () => {
@@ -51,8 +49,10 @@
 
   $: {
     // Write Result
-    const variablePart = (maxValue - minValue) / (maxViewport - minViewport)
-    const constant = toRem(+(maxValue - maxViewport * variablePart))
+    const maxValuePx = isRem ? toPx(maxValue) : maxValue;
+    const minValuePx = isRem ? toPx(minValue) : minValue;
+    const variablePart = (maxValuePx - minValuePx) / (maxViewport - minViewport)
+    const constant = ((+(maxValuePx - (maxViewport * variablePart))) / 16).toFixed(3)
     // prettier-ignore
     result = `clamp(${toRem(minValue)}rem, calc(${constant}rem + ${+(100 * variablePart).toFixed(2)}vw), ${toRem(maxValue)}rem)`
   }
