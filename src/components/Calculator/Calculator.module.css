@@ -38,7 +38,7 @@
   --height: 2.5rem;
   display: grid;
 
-  flex-basis: calc((56rem - 100%) * 999);
+  flex-basis: calc((52rem - 100%) * 999);
   flex-grow: 999;
   border: none;
   gap: var(--space);
@@ -151,7 +151,7 @@
 .inputRow {
   display: grid;
   gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(11.75rem, 1fr));
 }
 
 .inputWrapper {

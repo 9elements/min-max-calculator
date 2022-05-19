@@ -1,6 +1,6 @@
-# Min-Max-Calculator
+# <img alt="Min-Max-Value Interpolation" src="public/img/social-share.png" />
 
-Made with [Astro](https://astro.build), [Svelte](https://svelte.dev) and [PostCSS](https://postcss.org).
+> Made with [Astro](https://astro.build), [Svelte](https://svelte.dev) and [PostCSS](https://postcss.org).
 
 ## Local setup
 

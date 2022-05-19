@@ -4,7 +4,7 @@
 
   gap: var(--space);
   padding-block-start: var(--space);
-  padding-inline: var(--space);
+  padding-inline: min(3vw, var(--space));
 
   & h2 {
     flex-basis: 8ch;
