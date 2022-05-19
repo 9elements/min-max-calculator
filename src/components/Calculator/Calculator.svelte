@@ -56,30 +56,45 @@
 <section class={styles.wrapper}>
   <form on:submit|preventDefault class={styles.form}>
     <fieldset class={styles.fieldset}>
+      <legend class="sr-only"> Values </legend>
       <div class={styles.fieldsetHeader}>
-        <legend class={styles.legend}> Values </legend>
-        <div class={styles.unitToggleWrapper}>
-          <label for="unit" class="sr-only">Use rem instead of px</label>
-          <div class={styles.unitToggle}>
+        <span class={styles.legend} aria-hidden="true">Values</span>
+
+        <fieldset class={styles.unitToggle}>
+          <legend class="sr-only">Switch unit</legend>
+          <label
+            for="unit-px"
+            class={styles.unitLabel}
+            data-active={!isRem}
+            aria-label="Pixel"
+          >
+            px
             <input
-              type="checkbox"
-              id="unit"
+              type="radio"
+              id="unit-px"
+              name="unit"
               on:change={switchUnit}
-              class={styles.unitCheckbox}
+              checked
+              class={styles.unitRadio}
             />
-            <span class={styles.unitToggleIndicator} aria-hidden="true" />
-            <span
-              class={styles.unitToggleText}
-              data-active={!isRem}
-              aria-hidden="true">px</span
-            >
-            <span
-              class={styles.unitToggleText}
-              data-active={isRem}
-              aria-hidden="true">rem</span
-            >
-          </div>
-        </div>
+          </label>
+
+          <label for="unit-rem" class={styles.unitLabel} data-active={isRem}>
+            rem
+            <input
+              type="radio"
+              id="unit-rem"
+              name="unit"
+              on:change={switchUnit}
+              class={styles.unitRadio}
+            />
+          </label>
+          <span
+            class={styles.unitToggleIndicator}
+            data-unit={unit}
+            aria-hidden="true"
+          />
+        </fieldset>
       </div>
 
       <div class={styles.inputRow}>
@@ -119,7 +134,8 @@
     </fieldset>
 
     <fieldset class={styles.fieldset}>
-      <legend class={styles.legend}> Viewport </legend>
+      <legend class="sr-only"> Viewport </legend>
+      <span aria-hidden="true" class={styles.legend}> Viewport </span>
       <div class={styles.inputRow}>
         <div class={styles.inputWrapper}>
           <div class={styles.inputInner}>
@@ -168,6 +184,7 @@
       </ul>
     </div>
   {/if}
+
   <div class={styles.output}>
     <code class={styles.outputCSS}>
       {result}

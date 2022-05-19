@@ -7,7 +7,7 @@
   padding-inline: var(--space);
 
   & h2 {
-    flex-basis: 10ch;
+    flex-basis: 8ch;
     flex-grow: 1;
     color: var(--color-orange);
     font-feature-settings: var(--headline-font-features);
