@@ -17,11 +17,14 @@ body {
 
 html {
   position: relative;
-  background: radial-gradient(
-    51.98% 51.98% at 75.49% 26.72%,
-    #330e82 0%,
-    #18004a 100%
-  );
+  background-blend-mode: multiply;
+  background-image: radial-gradient(
+      51.98% 51.98% at 75.49% 26.72%,
+      #330e82 0%,
+      #18004a 100%
+    ),
+    url("/img/grain.png");
+  background-size: auto, 22rem 30rem;
 }
 
 body {

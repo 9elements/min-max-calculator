@@ -39,19 +39,6 @@
   }
 }
 
-.overlay {
-  position: fixed;
-  z-index: 999;
-  background-image: url("/img/grain.png");
-  background-repeat: repeat;
-  background-size: 22rem 30rem;
-  inset: 0;
-  mix-blend-mode: multiply;
-  opacity: 0.2;
-  pointer-events: none;
-  user-select: none;
-}
-
 .bgBlur {
   position: absolute;
   z-index: -1;
