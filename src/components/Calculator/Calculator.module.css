@@ -396,5 +396,9 @@
     background: rgb(255 255 255 / 0.05);
     border-radius: var(--space);
     line-height: 1.4;
+
+    &:focus-visible {
+      outline-offset: -2px;
+    }
   }
 }
