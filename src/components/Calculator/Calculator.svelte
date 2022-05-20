@@ -49,10 +49,12 @@
 
   $: {
     // Write Result
-    const minValuePx = isRem ? toPx(minValue) : minValue;
-    const maxValuePx = isRem ? toPx(maxValue) : maxValue;
+    const minValuePx = isRem ? toPx(minValue) : minValue
+    const maxValuePx = isRem ? toPx(maxValue) : maxValue
     const variablePart = (maxValuePx - minValuePx) / (maxViewport - minViewport)
-    const constant = ((+(maxValuePx - (maxViewport * variablePart))) / 16).toFixed(3)
+    const constant = (+(maxValuePx - maxViewport * variablePart) / 16).toFixed(
+      3
+    )
     // prettier-ignore
     result = `clamp(${toRem(minValue)}rem, ${constant}rem + ${+(100 * variablePart).toFixed(2)}vw, ${toRem(maxValue)}rem)`
   }
@@ -249,8 +251,7 @@
 <details class={styles.liveExample} style="--variable-value: {result}">
   <summary>Live font-size example</summary>
   <p style="font-size:var(--variable-value)" contenteditable="true">
-    This text uses the calculated clamp formula.
-    It gets invisible when you use 0 or negative numbers as a min-value. 🥲
-    Try editing it, though...
+    This text uses the calculated clamp formula. It gets invisible when you use
+    0 or negative numbers as a min-value. 🥲 Try editing it, though...
   </p>
 </details>

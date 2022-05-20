@@ -1,17 +1,17 @@
 .divider {
+  border: none;
+  border-block-end: 1px solid rgb(255 255 255 / 0.15);
+  inline-size: min(90%, 12rem);
   margin-block: calc(var(--space) * 2);
   margin-inline: auto;
-  width: min(90%, 12rem);
-  border: none;
-  border-bottom: 1px solid rgb(255 255 255 / 0.15);
 }
 
 .examples {
-  padding-inline: min(3vw, var(--space));
   display: flex;
   flex-direction: column;
   gap: var(--space);
-  width: 100%;
+  inline-size: 100%;
+  padding-inline: min(3vw, var(--space));
 
   & h2 {
     color: var(--color-orange);
@@ -23,12 +23,12 @@
 }
 
 .pen {
-  padding: 1em;
-  border-radius: 0.5em;
-  background: rgb(255 255 255 / 0.1);
-  resize: horizontal;
   overflow: auto;
+  padding: 1em;
+  background: rgb(255 255 255 / 0.1);
+  border-radius: 0.5em;
+  inline-size: 100%;
   margin-inline: auto;
-  width: 100%;
-  max-width: 100%;
+  max-inline-size: 100%;
+  resize: horizontal;
 }

@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
   padding: var(--space);
-  padding-block-end: 3rem;
   background-color: rgb(255 255 255 / 0.05);
   background-image: radial-gradient(
     50% 50% at 50% 50%,
@@ -13,6 +12,7 @@
   );
   border-radius: var(--space);
   gap: 2rem;
+  padding-block-end: 3rem;
 }
 
 .form {
@@ -290,11 +290,6 @@
   &:hover {
     box-shadow: 0px 0px 2rem hsl(var(--color-orange-hsl) / 0.7);
   }
-
-  &:focus-visible {
-    outline: 2px solid var(--color-orange);
-    outline-offset: 2px;
-  }
 }
 
 .copyButtonTextPlaceholder {
@@ -355,41 +350,36 @@
   }
 
   & summary {
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
-    cursor: pointer;
-    background: var(--color-orange);
-    color: var(--color-purple);
-    font-size: var(--font-size--1);
-    font-weight: 700;
-    width: max-content;
-    padding: 0.5em 1em;
-    border-radius: 999rem;
-    margin-inline: auto;
-    margin-block-end: -1em;
     position: relative;
     z-index: 2;
+    display: flex;
+    align-items: center;
+    padding: 0.5em 1em;
+    background: var(--color-orange);
+    border-radius: 999rem;
+    color: var(--color-purple);
+    cursor: pointer;
+    font-size: var(--font-size--1);
+    font-weight: 700;
+    gap: 0.5em;
+    inline-size: max-content;
+    margin-block-end: -1em;
+    margin-inline: auto;
 
     &::-webkit-details-marker {
       display: none;
     }
 
-    &:focus-visible {
-      outline: 2px solid var(--color-orange);
-      outline-offset: 2px;
-    }
-
     &::before {
-      content: "";
       display: block;
-      width: 0;
-      height: 0;
       border-width: 0.5em 0.375em 0;
       border-style: solid;
       border-color: transparent;
-      border-block-start-color: var(--color-purple);
+      block-size: 0;
       border-block-end-color: var(--color-purple);
+      border-block-start-color: var(--color-purple);
+      content: "";
+      inline-size: 0;
       transition: transform 0.4s ease-out;
     }
   }
@@ -399,8 +389,8 @@
   }
 
   & p {
-    background: rgb(255 255 255 / 0.05);
     padding: var(--space);
+    background: rgb(255 255 255 / 0.05);
     border-radius: var(--space);
     line-height: 1.4;
   }

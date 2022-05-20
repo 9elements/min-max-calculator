@@ -32,11 +32,6 @@
     background-color: hsl(var(--color-orange-hsl) / 0.2);
   }
 
-  &:focus-visible {
-    outline: 2px solid var(--color-orange);
-    outline-offset: 2px;
-  }
-
   & svg {
     --size: 1.5em;
     block-size: var(--size);
