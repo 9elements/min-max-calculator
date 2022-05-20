@@ -39,10 +39,10 @@
   --height: 2.5rem;
   display: grid;
 
-  flex-basis: calc((52rem - 100%) * 999);
+  flex-basis: calc((49rem - 100%) * 999);
   flex-grow: 999;
   border: none;
-  gap: var(--space);
+  gap: calc(var(--space) / 3 * 2);
   grid-template-rows: var(--height) 1fr;
 }
 
@@ -151,7 +151,7 @@
 
 .inputRow {
   display: grid;
-  gap: 2rem;
+  gap: calc(var(--space) / 3 * 2);
   grid-template-columns: repeat(auto-fit, minmax(11.75rem, 1fr));
 }
 
@@ -161,7 +161,6 @@
   flex-direction: column;
   font-size: var(--font-size-0);
   gap: 0.5rem;
-  max-inline-size: 20rem;
 }
 
 .inputInner {
