@@ -49,8 +49,8 @@
 
   $: {
     // Write Result
-    const maxValuePx = isRem ? toPx(maxValue) : maxValue;
     const minValuePx = isRem ? toPx(minValue) : minValue;
+    const maxValuePx = isRem ? toPx(maxValue) : maxValue;
     const variablePart = (maxValuePx - minValuePx) / (maxViewport - minViewport)
     const constant = ((+(maxValuePx - (maxViewport * variablePart))) / 16).toFixed(3)
     // prettier-ignore
@@ -101,10 +101,11 @@
       <div class={styles.inputRow}>
         <div class={styles.inputWrapper}>
           <div class={styles.inputInner}>
-            <label class={styles.inputLabel} for="min-value"> Min </label>
+            <label class={styles.inputLabel} for="min-value">Min</label>
             <input
               class={styles.input}
               type="number"
+              step="any"
               id="min-value"
               bind:value={minValue}
               aria-describedby="min-value-description"
@@ -123,6 +124,8 @@
             <input
               class={styles.input}
               type="number"
+              step="any"
+              min={0}
               id="max-value"
               bind:value={maxValue}
             />
@@ -144,6 +147,7 @@
             <input
               class={styles.input}
               type="number"
+              step="any"
               id="min-viewport"
               min={0}
               bind:value={minViewportPx}
@@ -158,6 +162,7 @@
             <input
               class={styles.input}
               type="number"
+              step="any"
               id="max-viewport"
               min={0}
               bind:value={maxViewportPx}
