@@ -17,13 +17,11 @@
   $: minViewport = switchToCurrentValue(minViewportPx)
   $: maxViewport = switchToCurrentValue(maxViewportPx)
 
-  $: hasError =
-    minValue > maxValue ||
-    maxViewportPx < 1 ||
-    minViewportPx < 0 ||
-    minViewportPx >= maxViewportPx
-  $: hasNegative = minViewportPx < 0 || maxViewportPx < 1
-  $: isMinViewPortGreaterThanMaxViewPort = minViewportPx >= maxViewportPx
+  // Errors
+  let hasError = false
+  let hasNegative = false
+  let isMinValueGreaterThanMaxValue = false
+  let isMinViewPortGreaterThanMaxViewPort = false
 
   let result
   let isCopied = false
@@ -45,6 +43,16 @@
         isCopied = false
       }, 2000)
     })
+  }
+
+  const validate = () => {
+    hasNegative = minViewportPx < 0 || maxViewportPx < 1
+    isMinValueGreaterThanMaxValue = minValue >= maxValue
+    isMinViewPortGreaterThanMaxViewPort = minViewportPx >= maxViewportPx
+    hasError =
+      hasNegative ||
+      isMinValueGreaterThanMaxValue ||
+      isMinViewPortGreaterThanMaxViewPort
   }
 
   $: {
@@ -111,6 +119,7 @@
               id="min-value"
               bind:value={minValue}
               aria-describedby="min-value-description"
+              on:blur={validate}
             />
             <span class={styles.inputUnit}>
               {unit}
@@ -130,6 +139,7 @@
               min={0}
               id="max-value"
               bind:value={maxValue}
+              on:blur={validate}
             />
             <span class={styles.inputUnit}>
               {unit}
@@ -153,6 +163,7 @@
               id="min-viewport"
               min={0}
               bind:value={minViewportPx}
+              on:blur={validate}
             />
             <span class={styles.inputUnit}>px</span>
           </div>
@@ -168,6 +179,7 @@
               id="max-viewport"
               min={0}
               bind:value={maxViewportPx}
+              on:blur={validate}
             />
             <span class={styles.inputUnit}>px</span>
           </div>
@@ -180,7 +192,7 @@
     <div class={styles.errors}>
       <strong>Oh no, there are errors: </strong>
       <ul>
-        {#if minValue > maxValue}
+        {#if isMinValueGreaterThanMaxValue}
           <li>Min value must be less than max value</li>
         {/if}
         {#if hasNegative}
