@@ -260,10 +260,14 @@
   </div>
 </section>
 
-<details class={styles.liveExample} style="--variable-value: {result}">
-  <summary>Live font-size example</summary>
-  <p style="font-size:var(--variable-value)" contenteditable="true">
-    This text uses the calculated clamp formula. It gets invisible when you use
-    0 or negative numbers as a min-value. 🥲 Try editing it, though...
-  </p>
-</details>
+<details-utils animate>
+  <details class={styles.liveExample} style="--variable-value: {result}">
+    <summary>Live font-size example</summary>
+    <div>
+      <p style="font-size:var(--variable-value)" contenteditable="true">
+        This text uses the calculated clamp formula. It gets invisible when you
+        use 0 or negative numbers as a min-value. 🥲 Try editing it, though...
+      </p>
+    </div>
+  </details>
+</details-utils>

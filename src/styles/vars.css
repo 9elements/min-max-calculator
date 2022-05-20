@@ -13,14 +13,14 @@
   --space: clamp(1.25rem, -0.294rem + 6.59vw, 3rem);
 
   /* Font-sizes: https://utopia.fyi/type/calculator?c=375,16,1.2,1140,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l */
-  --font-size--2: clamp(0.69rem, calc(0.64rem + 0.22vw), 0.8rem);
-  --font-size--1: clamp(0.83rem, calc(0.75rem + 0.35vw), 1rem);
-  --font-size-0: clamp(1rem, calc(0.88rem + 0.52vw), 1.25rem);
-  --font-size-1: clamp(1.2rem, calc(1.02rem + 0.76vw), 1.56rem);
-  --font-size-2: clamp(1.44rem, calc(1.19rem + 1.07vw), 1.95rem);
-  --font-size-3: clamp(1.73rem, calc(1.38rem + 1.49vw), 2.44rem);
-  --font-size-4: clamp(2.07rem, calc(1.59rem + 2.05vw), 3.05rem);
-  --font-size-5: clamp(2.49rem, calc(1.84rem + 2.78vw), 3.82rem);
+  --font-size--2: clamp(0.69rem, 0.64rem + 0.22vw, 0.8rem);
+  --font-size--1: clamp(0.83rem, 0.75rem + 0.35vw, 1rem);
+  --font-size-0: clamp(1rem, 0.88rem + 0.52vw, 1.25rem);
+  --font-size-1: clamp(1.2rem, 1.02rem + 0.76vw, 1.56rem);
+  --font-size-2: clamp(1.44rem, 1.19rem + 1.07vw, 1.95rem);
+  --font-size-3: clamp(1.73rem, 1.38rem + 1.49vw, 2.44rem);
+  --font-size-4: clamp(2.07rem, 1.59rem + 2.05vw, 3.05rem);
+  --font-size-5: clamp(2.49rem, 1.84rem + 2.78vw, 3.82rem);
 
   /* Font features */
   --headline-font-features: "salt" on;

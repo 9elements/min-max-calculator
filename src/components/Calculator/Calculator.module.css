@@ -387,6 +387,10 @@
     transform: rotate(180deg);
   }
 
+  & div {
+    overflow: hidden;
+  }
+
   & p {
     padding: var(--space);
     background: rgb(255 255 255 / 0.05);
