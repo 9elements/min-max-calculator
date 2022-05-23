@@ -60,11 +60,11 @@
     const minValuePx = isRem ? toPx(minValue) : minValue
     const maxValuePx = isRem ? toPx(maxValue) : maxValue
     const variablePart = (maxValuePx - minValuePx) / (maxViewport - minViewport)
-    const constant = (+(maxValuePx - maxViewport * variablePart) / 16).toFixed(
-      3
+    const constant = parseFloat(
+      ((maxValuePx - maxViewport * variablePart) / 16).toFixed(3)
     )
     // prettier-ignore
-    result = `clamp(${toRem(minValue)}rem, ${constant}rem + ${+(100 * variablePart).toFixed(2)}vw, ${toRem(maxValue)}rem)`
+    result = `clamp(${toRem(minValue)}rem,${constant ? ` ${constant}rem +` : ""} ${parseFloat((100 * variablePart).toFixed(2))}vw, ${toRem(maxValue)}rem)`
   }
 </script>
 
