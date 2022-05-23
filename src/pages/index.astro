@@ -61,6 +61,12 @@ const metaImage = `${Astro.site}img/social-share.png`
     </header>
 
     <main>
+      <p class="sr-only">
+        This is a tool that calculates the clamp formula needed to interpolate
+        between a minimum value and a maximum value in a given viewport range.
+        You can choose to use pixels or rems as a unit for the minimum and
+        maximum values.
+      </p>
       <Calculator client:load />
       <Info />
       <Examples />

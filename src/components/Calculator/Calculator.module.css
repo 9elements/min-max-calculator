@@ -69,7 +69,6 @@
   font-size: var(--font-size--1);
   grid-template-columns: repeat(2, 1fr);
   inline-size: var(--width);
-  inset-block-start: -0.25em;
 
   &,
   & * {
@@ -133,9 +132,13 @@
   z-index: 2;
   block-size: 100%;
   grid-row: 1;
-  inline-size: 100%;
+  inline-size: 50%;
   inset: 0;
   opacity: 0;
+
+  &[id="unit-rem"] {
+    transform: translateX(100%);
+  }
 }
 
 .legend {

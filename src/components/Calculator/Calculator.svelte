@@ -70,16 +70,15 @@
 
 <section class={styles.wrapper}>
   <form on:submit|preventDefault class={styles.form}>
-    <fieldset class={styles.fieldset}>
-      <legend class="sr-only"> Values </legend>
+    <fieldset class={styles.fieldset} aria-label="Minimum and maximum Values">
       <div class={styles.fieldsetHeader}>
         <span class={styles.legend} aria-hidden="true">Values</span>
 
-        <fieldset class={styles.unitToggle}>
-          <legend class="sr-only">Switch unit</legend>
+        <fieldset class={styles.unitToggle} aria-label="Switch unit">
           <label for="unit-px" class={styles.unitLabel} data-active={!isRem}>
             <span class="sr-only">Pixel</span>
-            <span aria-hidden="true"> px</span>
+            <span aria-hidden="true">px</span>
+          </label>
             <input
               type="radio"
               id="unit-px"
@@ -88,18 +87,18 @@
               checked
               class={styles.unitRadio}
             />
-          </label>
+
 
           <label for="unit-rem" class={styles.unitLabel} data-active={isRem}>
             rem
-            <input
-              type="radio"
-              id="unit-rem"
-              name="unit"
-              on:change={switchUnit}
-              class={styles.unitRadio}
-            />
           </label>
+          <input
+            type="radio"
+            id="unit-rem"
+            name="unit"
+            on:change={switchUnit}
+            class={styles.unitRadio}
+          />
           <span
             class={styles.unitToggleIndicator}
             data-unit={unit}
@@ -111,7 +110,7 @@
       <div class={styles.inputRow}>
         <div class={styles.inputWrapper}>
           <div class={styles.inputInner}>
-            <label class={styles.inputLabel} for="min-value">Min</label>
+            <label class={styles.inputLabel} for="min-value" aria-label="Minimum Value">Min</label>
             <input
               class={styles.input}
               type="number"
@@ -131,7 +130,7 @@
         </div>
         <div class={styles.inputWrapper}>
           <div class={styles.inputInner}>
-            <label class={styles.inputLabel} for="max-value">Max</label>
+            <label class={styles.inputLabel} for="max-value" aria-label="Maximum Value">Max</label>
             <input
               class={styles.input}
               type="number"
@@ -149,13 +148,12 @@
       </div>
     </fieldset>
 
-    <fieldset class={styles.fieldset}>
-      <legend class="sr-only"> Viewport </legend>
-      <span aria-hidden="true" class={styles.legend}> Viewport </span>
+    <fieldset class={styles.fieldset} aria-label="Viewport range">
+      <span aria-hidden="true" class={styles.legend}>Viewport</span>
       <div class={styles.inputRow}>
         <div class={styles.inputWrapper}>
           <div class={styles.inputInner}>
-            <label class={styles.inputLabel} for="min-viewport">Min</label>
+            <label class={styles.inputLabel} for="min-viewport" aria-label="Minimum viewport">Min</label>
             <input
               class={styles.input}
               type="number"
@@ -171,7 +169,7 @@
 
         <div class={styles.inputWrapper}>
           <div class={styles.inputInner}>
-            <label class={styles.inputLabel} for="max-viewport">Max</label>
+            <label class={styles.inputLabel} for="max-viewport" aria-label="Maximum Viewport">Max</label>
             <input
               class={styles.input}
               type="number"
@@ -209,6 +207,7 @@
   {/if}
 
   <div class={styles.output}>
+    <h2 class="sr-only">Calculated Result:</h2>
     <code class={styles.outputCSS}>
       {result}
     </code>
