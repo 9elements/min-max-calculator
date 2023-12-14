@@ -18,7 +18,7 @@ yarn install
 yarn dev
 ```
 
-> Done! the server is accessible at http://localhost:3000
+> Done! the server is accessible at http://localhost:4321
 
 ## Deployment
 

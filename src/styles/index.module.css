@@ -17,8 +17,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: hsl(var(--color-orange-hsl) / 0.1);
   border-radius: 99px;
+  background-color: hsl(var(--color-orange-hsl) / 0.1);
   font-size: var(--font-size--1);
   font-weight: 500;
   gap: 0.75ch;

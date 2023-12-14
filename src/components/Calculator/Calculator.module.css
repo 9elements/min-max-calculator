@@ -4,13 +4,13 @@
   display: flex;
   flex-direction: column;
   padding: var(--space);
+  border-radius: var(--space);
   background-color: rgb(255 255 255 / 0.05);
   background-image: radial-gradient(
     50% 50% at 50% 50%,
     rgba(148, 88, 88, 0.48) 0%,
     rgba(148, 88, 88, 0) 100%
   );
-  border-radius: var(--space);
   gap: 2rem;
   padding-block-end: 3rem;
 }
@@ -24,8 +24,8 @@
     flex-basis: 1px;
     flex-grow: 1;
     order: -1;
-    background-color: rgb(0 0 0 / 0.3);
     border-radius: 1rem;
+    background-color: rgb(0 0 0 / 0.3);
     content: "";
     min-block-size: 1px;
   }
@@ -64,8 +64,8 @@
   display: inline-grid;
   align-items: center;
   border: none;
-  block-size: var(--height);
   border-radius: 0.25rem;
+  block-size: var(--height);
   font-size: var(--font-size--1);
   grid-template-columns: repeat(2, 1fr);
   inline-size: var(--width);
@@ -82,9 +82,9 @@
 
   &::after {
     position: absolute;
+    border-radius: 99px;
     background-color: rgb(255 255 255 / 0.3);
     block-size: var(--indicator-height);
-    border-radius: 99px;
     content: "";
     inline-size: 100%;
     inset-block-end: 0;
@@ -95,9 +95,9 @@
 .unitToggleIndicator {
   position: absolute;
   align-self: center;
+  border-radius: 10px;
   background-color: white;
   block-size: var(--indicator-height);
-  border-radius: 10px;
   box-shadow: 0 0 0.125rem 0 rgba(0, 0, 0, 0.25);
   inline-size: 50%;
   inset-block-end: 0;
@@ -183,11 +183,11 @@
   --shadow-hsl: 7 100% 68%;
   flex: 1;
   border: none;
+  border-radius: 99px;
 
   appearance: none;
   background-color: hsl(var(--bg-hsl) / 0.5);
   block-size: var(--input-height);
-  border-radius: 99px;
   box-shadow: 0px 0px 2.5rem hsl(var(--shadow-hsl) / 0);
   color: var(--color-foreground);
   font-weight: 700;
@@ -236,8 +236,8 @@
   --min-height: 4.5rem;
   display: flex;
   flex-wrap: wrap;
-  background-color: rgb(255 255 255 / 0.1);
   border-radius: calc(var(--min-height) / 2);
+  background-color: rgb(255 255 255 / 0.1);
   font-size: var(--font-size-0);
   line-height: 1.25;
 
@@ -273,9 +273,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: calc(var(--min-height) / 2);
   background-color: var(--color-orange);
   block-size: 100%;
-  border-radius: calc(var(--min-height) / 2);
   color: var(--color-purple);
   font-size: var(--font-size-0);
   font-weight: 700;
@@ -308,11 +308,11 @@
   z-index: 2;
   display: block;
   display: grid;
+  border-radius: 99px;
   background-image: radial-gradient(
     var(--color-orange) 20%,
     hsl(var(--color-orange-hsl) / 0) 100%
   );
-  border-radius: 99px;
   inline-size: 3rem;
   place-content: center;
   pointer-events: none;
@@ -327,8 +327,8 @@
 
 .errors {
   padding: 1.5em;
-  background-color: rgb(222 0 0 / 0.2);
   border-radius: calc(var(--input-height) / 2);
+  background-color: rgb(222 0 0 / 0.2);
   font-size: var(--font-size-0);
 
   & ul {
@@ -356,9 +356,8 @@
     z-index: 2;
     display: flex;
     align-items: center;
-    padding: 0.5em 1em;
-    background: var(--color-orange);
     border-radius: 999rem;
+    background: var(--color-orange);
     color: var(--color-purple);
     cursor: pointer;
     font-size: var(--font-size--1);
@@ -367,6 +366,8 @@
     inline-size: max-content;
     margin-block-end: -1em;
     margin-inline: auto;
+    padding-block: 0.5em;
+    padding-inline: 1em;
 
     &::-webkit-details-marker {
       display: none;
@@ -396,8 +397,8 @@
 
   & p {
     padding: var(--space);
-    background: rgb(255 255 255 / 0.05);
     border-radius: var(--space);
+    background: rgb(255 255 255 / 0.05);
     line-height: 1.4;
 
     &:focus-visible {

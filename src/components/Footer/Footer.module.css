@@ -23,7 +23,8 @@
 
   & > * {
     /* ↓ Half the value to each element, combining to make the whole */
-    margin: calc(var(--centerflex-gap, 1rem) / 2) auto;
+    margin-block: calc(var(--centerflex-gap, 1rem) / 2);
+    margin-inline: auto;
 
     &:first-child {
       order: -1;
