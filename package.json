@@ -9,19 +9,21 @@
     "preview": "astro preview --host 0.0.0.0"
   },
   "devDependencies": {
-    "@astrojs/svelte": "^5.0.1",
-    "astro": "^4.0.4",
-    "postcss": "^8.4.32",
-    "postcss-preset-env": "^9.3.0",
-    "prettier-plugin-astro": "^0.12.2",
-    "stylelint": "15.11.0",
+    "@astrojs/svelte": "^5.4.0",
+    "@zachleat/details-utils": "^2.0.2",
+    "astro": "^4.6.4",
+    "postcss": "^8.4.38",
+    "postcss-preset-env": "^9.5.9",
+    "prettier-plugin-astro": "^0.13.0",
+    "stylelint": "16.4.0",
     "stylelint-config-idiomatic-order": "^10.0.0",
     "stylelint-config-recommended": "^14.0.0",
-    "stylelint-use-logical-spec": "^5.0.0"
+    "stylelint-use-logical-spec": "^5.0.1",
+    "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@csstools/postcss-global-data": "^2.1.0",
+    "@csstools/postcss-global-data": "^2.1.1",
     "modern-normalize": "^2.0.0",
-    "svelte": "^4.2.8"
+    "svelte": "^4.2.15"
   }
 }

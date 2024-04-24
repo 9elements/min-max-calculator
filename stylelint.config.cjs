@@ -2,9 +2,8 @@ module.exports = {
   extends: ["stylelint-config-recommended", "stylelint-config-idiomatic-order"],
   plugins: ["stylelint-use-logical-spec"],
   rules: {
-    "liberty/use-logical-spec": ["always"],
+    "declaration-property-value-no-unknown": true,
     "comment-empty-line-before": null,
-    "declaration-block-trailing-semicolon": null,
     "no-descending-specificity": null,
     "rule-empty-line-before": [
       "always",
@@ -20,5 +19,12 @@ module.exports = {
         ignore: ["after-comment"],
       },
     ],
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        ignorePseudoClasses: ["global"],
+      },
+    ],
+    "liberty/use-logical-spec": true,
   },
 }

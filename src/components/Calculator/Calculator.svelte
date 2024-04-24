@@ -79,15 +79,14 @@
             <span class="sr-only">Pixel</span>
             <span aria-hidden="true">px</span>
           </label>
-            <input
-              type="radio"
-              id="unit-px"
-              name="unit"
-              on:change={switchUnit}
-              checked
-              class={styles.unitRadio}
-            />
-
+          <input
+            type="radio"
+            id="unit-px"
+            name="unit"
+            on:change={switchUnit}
+            checked
+            class={styles.unitRadio}
+          />
 
           <label for="unit-rem" class={styles.unitLabel} data-active={isRem}>
             rem
@@ -110,7 +109,11 @@
       <div class={styles.inputRow}>
         <div class={styles.inputWrapper}>
           <div class={styles.inputInner}>
-            <label class={styles.inputLabel} for="min-value" aria-label="Minimum Value">Min</label>
+            <label
+              class={styles.inputLabel}
+              for="min-value"
+              aria-label="Minimum Value">Min</label
+            >
             <input
               class={styles.input}
               type="number"
@@ -130,7 +133,11 @@
         </div>
         <div class={styles.inputWrapper}>
           <div class={styles.inputInner}>
-            <label class={styles.inputLabel} for="max-value" aria-label="Maximum Value">Max</label>
+            <label
+              class={styles.inputLabel}
+              for="max-value"
+              aria-label="Maximum Value">Max</label
+            >
             <input
               class={styles.input}
               type="number"
@@ -153,7 +160,11 @@
       <div class={styles.inputRow}>
         <div class={styles.inputWrapper}>
           <div class={styles.inputInner}>
-            <label class={styles.inputLabel} for="min-viewport" aria-label="Minimum viewport">Min</label>
+            <label
+              class={styles.inputLabel}
+              for="min-viewport"
+              aria-label="Minimum viewport">Min</label
+            >
             <input
               class={styles.input}
               type="number"
@@ -169,7 +180,11 @@
 
         <div class={styles.inputWrapper}>
           <div class={styles.inputInner}>
-            <label class={styles.inputLabel} for="max-viewport" aria-label="Maximum Viewport">Max</label>
+            <label
+              class={styles.inputLabel}
+              for="max-viewport"
+              aria-label="Maximum Viewport">Max</label
+            >
             <input
               class={styles.input}
               type="number"

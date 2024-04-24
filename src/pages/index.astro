@@ -1,29 +1,31 @@
 ---
-import "../styles/vars.css"
-import "../styles/global.css"
 import "../styles/fonts.css"
+import "../styles/global.css"
+import "../styles/vars.css"
 
 import styles from "../styles/index.module.css"
 
 import Calculator from "../components/Calculator/Calculator.svelte"
-import Info from "../components/Info/Info.astro"
-import Footer from "../components/Footer/Footer.astro"
 import Examples from "../components/Examples/Examples.astro"
+import Footer from "../components/Footer/Footer.astro"
 import GitHubIcon from "../components/Icons/GitHub.svelte"
+import Info from "../components/Info/Info.astro"
 
-//  TODO: Proper title and description
+import metaImage from "../assets/img/social-share.png"
+import faviconSVG from "../assets/img/favicon.svg"
+import faviconPNG from "../assets/img/favicon.png"
+
 const title = "Min-Max-Value Interpolation"
 const description =
   "A tool that calculates the CSS clamp formula to interpolate between two values in a given viewport range."
-const metaImage = `${Astro.site}img/social-share.png`
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="/img/favicon.png" type="image/png" sizes="any" />
-    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={faviconSVG.src} type="image/png" sizes="any" />
+    <link rel="icon" href={faviconPNG.src} type="image/svg+xml" />
 
     <title>Min-Max-Value Interpolation</title>
     <meta name="title" content={title} />
@@ -33,7 +35,7 @@ const metaImage = `${Astro.site}img/social-share.png`
     <meta property="og:url" content={Astro.site} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={metaImage} />
+    <meta property="og:image" content={new URL(metaImage.src, Astro.site)} />
 
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.site} />
@@ -74,6 +76,9 @@ const metaImage = `${Astro.site}img/social-share.png`
 
     <Footer />
     <div class={styles.bgBlur} aria-hidden="true"></div>
-    <script src="/js/details-utils.min.js" is:inline></script>
   </body>
 </html>
+
+<script>
+  import "@zachleat/details-utils"
+</script>

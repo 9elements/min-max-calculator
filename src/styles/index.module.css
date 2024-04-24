@@ -9,6 +9,7 @@
 .headline {
   font-feature-settings: var(--headline-font-features);
   font-size: var(--font-size-5);
+
   line-height: 1.15;
   max-inline-size: 20ch;
 }
