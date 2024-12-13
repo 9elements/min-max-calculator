@@ -10,10 +10,14 @@
   const toPx = (value) => +(isRem ? value * 16 : value)?.toFixed(3)
   const switchToCurrentValue = (value) => (isRem ? toRem(value) : toPx(value))
 
-  let minValue = 16
-  let maxValue = 24
-  let minViewportPx = 320
-  let maxViewportPx = 1200
+  const initial = globalThis.window?.location.search.match(
+    /\?(\d+)-(\d+),(\d+)-(\d+)/
+  )
+
+  let minValue = initial ? Number(initial[1]) : 16
+  let maxValue = initial ? Number(initial[2]) : 24
+  let minViewportPx = initial ? Number(initial[3]) : 320
+  let maxViewportPx = initial ? Number(initial[4]) : 1200
   $: minViewport = switchToCurrentValue(minViewportPx)
   $: maxViewport = switchToCurrentValue(maxViewportPx)
 
@@ -63,6 +67,8 @@
     const constant = parseFloat(
       ((maxValuePx - maxViewport * variablePart) / 16).toFixed(3)
     )
+    // prettier-ignore
+    globalThis.window?.history.replaceState({}, null, `?${minValuePx}-${maxValuePx},${minViewport}-${maxViewport}`)
     // prettier-ignore
     result = `clamp(${toRem(minValue)}rem,${constant ? ` ${constant}rem +` : ""} ${parseFloat((100 * variablePart).toFixed(2))}vw, ${toRem(maxValue)}rem)`
   }
