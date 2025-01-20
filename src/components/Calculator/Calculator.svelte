@@ -4,30 +4,29 @@
   import CheckIcon from "../Icons/Check.svelte"
   import styles from "./Calculator.module.css"
 
-  let unit = "px" // or "rem"
-  $: isRem = unit === "rem"
+  let unit = $state("px")
+  let isRem = $derived(unit === "rem")
   const toRem = (value) => +(isRem ? value : value / 16)?.toFixed(3)
   const toPx = (value) => +(isRem ? value * 16 : value)?.toFixed(3)
   const switchToCurrentValue = (value) => (isRem ? toRem(value) : toPx(value))
 
-  let minValue = 16
-  let maxValue = 24
-  let minViewportPx = 320
-  let maxViewportPx = 1200
-  $: minViewport = switchToCurrentValue(minViewportPx)
-  $: maxViewport = switchToCurrentValue(maxViewportPx)
+  let minValue = $state(16)
+  let maxValue = $state(24)
+  let minViewportPx = $state(320)
+  let maxViewportPx = $state(1200)
+  let minViewport = $derived(switchToCurrentValue(minViewportPx))
+  let maxViewport = $derived(switchToCurrentValue(maxViewportPx))
 
   // Errors
-  let hasError = false
-  let hasNegative = false
-  let isMinValueGreaterThanMaxValue = false
-  let isMinViewPortGreaterThanMaxViewPort = false
+  let hasError = $state(false)
+  let hasNegative = $state(false)
+  let isMinValueGreaterThanMaxValue = $state(false)
+  let isMinViewPortGreaterThanMaxViewPort = $state(false)
 
-  let result
-  let isCopied = false
+  let result = $state("")
+  let isCopied = $state(false)
 
   // Functions
-
   const switchUnit = () => {
     const switchValue = (value) => (isRem ? toPx(value) : toRem(value))
     unit = unit === "px" ? "rem" : "px"
@@ -55,7 +54,7 @@
       isMinViewPortGreaterThanMaxViewPort
   }
 
-  $: {
+  $effect(() => {
     // Write Result
     const minValuePx = isRem ? toPx(minValue) : minValue
     const maxValuePx = isRem ? toPx(maxValue) : maxValue
@@ -65,11 +64,11 @@
     )
     // prettier-ignore
     result = `clamp(${toRem(minValue)}rem,${constant ? ` ${constant}rem +` : ""} ${parseFloat((100 * variablePart).toFixed(2))}vw, ${toRem(maxValue)}rem)`
-  }
+  })
 </script>
 
 <section class={styles.wrapper}>
-  <form on:submit|preventDefault class={styles.form}>
+  <form onsubmit={(e) => e.preventDefault()} class={styles.form}>
     <fieldset class={styles.fieldset} aria-label="Minimum and maximum Values">
       <div class={styles.fieldsetHeader}>
         <span class={styles.legend} aria-hidden="true">Values</span>
@@ -83,7 +82,7 @@
             type="radio"
             id="unit-px"
             name="unit"
-            on:change={switchUnit}
+            onchange={switchUnit}
             checked
             class={styles.unitRadio}
           />
@@ -95,7 +94,7 @@
             type="radio"
             id="unit-rem"
             name="unit"
-            on:change={switchUnit}
+            onchange={switchUnit}
             class={styles.unitRadio}
           />
           <span
@@ -121,7 +120,7 @@
               id="min-value"
               bind:value={minValue}
               aria-describedby="min-value-description"
-              on:blur={validate}
+              onblur={validate}
             />
             <span class={styles.inputUnit}>
               {unit}
@@ -145,7 +144,7 @@
               min={0}
               id="max-value"
               bind:value={maxValue}
-              on:blur={validate}
+              onblur={validate}
             />
             <span class={styles.inputUnit}>
               {unit}
@@ -172,7 +171,7 @@
               id="min-viewport"
               min={0}
               bind:value={minViewportPx}
-              on:blur={validate}
+              onblur={validate}
             />
             <span class={styles.inputUnit}>px</span>
           </div>
@@ -192,7 +191,7 @@
               id="max-viewport"
               min={0}
               bind:value={maxViewportPx}
-              on:blur={validate}
+              onblur={validate}
             />
             <span class={styles.inputUnit}>px</span>
           </div>
@@ -230,7 +229,7 @@
       <button
         class={styles.copyButton}
         data-copied={isCopied}
-        on:click={copyToClipboard}
+        onclick={copyToClipboard}
       >
         <span class={styles.copyButtonTextPlaceholder} aria-hidden="true">
           copy
