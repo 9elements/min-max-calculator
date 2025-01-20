@@ -102,7 +102,7 @@
             class={styles.unitToggleIndicator}
             data-unit={unit}
             aria-hidden="true"
-          />
+          ></span>
         </fieldset>
       </div>
 
