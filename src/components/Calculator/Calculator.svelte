@@ -7,17 +7,30 @@
 
   /** @type {"px" | "rem"} */
   let unit = $state("px")
-  const urlState = globalThis.window?.location.search.match(
-    /\?(\d+)-(\d+),(\d+)-(\d+)/
-  )
+
+  /**
+   * TODO:
+   * - Handle negative values on min/max values
+   */
+  const formatValueForURL = (value) => value.toString().replaceAll(".", "_")
+  const formatURLValue = (value) => value.toString().replaceAll("_", ".")
+
+  const urlState = globalThis.window?.location.search
+    .match(/\?(\d+[_]?\d*)-(\d+[_]?\d+),(\d+[_]?\d*)-(\d+[_]?\d+)/)
+    ?.slice(1)
+    ?.map((value) => value.split("-").map(formatURLValue))
+    .flat()
+  // ?.slice(1)
+
+  $inspect(urlState)
 
   const toRem = (value) => +(value / 16)?.toFixed(3)
   const toPx = (value) => +(value * 16)?.toFixed(3)
 
-  let minValue = $state(+urlState?.[1] || 16)
-  let maxValue = $state(+urlState?.[2] || 24)
-  let minViewport = $state(+urlState?.[3] || 320)
-  let maxViewport = $state(+urlState?.[4] || 1200)
+  let minValue = $state(+urlState?.[0] || 16)
+  let maxValue = $state(+urlState?.[1] || 24)
+  let minViewport = $state(+urlState?.[2] || 320)
+  let maxViewport = $state(+urlState?.[3] || 1200)
   const variablePart = $derived(
     (maxValue - minValue) / (maxViewport - minViewport)
   )
@@ -32,7 +45,7 @@
   let hasError = $state(false)
   const hasNegative = $derived(minViewport < 0 || maxViewport < 1)
   const isMinValueGreaterThanMax = $derived(minValue >= maxValue)
-  const isMinViewportGreaterThanMax = $derived(minViewport >= maxViewport)
+  let isMinViewportGreaterThanMax = $derived(minViewport >= maxViewport)
 
   let isCopied = $state(false)
 
@@ -59,7 +72,9 @@
     globalThis.window?.history.replaceState(
       {},
       null,
-      `?${minValue}-${maxValue},${minViewport}-${maxViewport}`
+      formatValueForURL(
+        `?${minValue}-${maxValue},${minViewport}-${maxViewport}`
+      )
     )
   })
 
