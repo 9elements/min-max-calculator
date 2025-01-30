@@ -43,7 +43,7 @@
   let hasError = $state(false)
   const hasNegative = $derived(minViewport < 0 || maxViewport < 1)
   const isMinValueGreaterThanMax = $derived(minValue >= maxValue)
-  let isMinViewportGreaterThanMax = $derived(minViewport >= maxViewport)
+  const isMinViewportGreaterThanMax = $derived(minViewport >= maxViewport)
 
   let isCopied = $state(false)
 
