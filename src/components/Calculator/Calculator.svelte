@@ -8,21 +8,19 @@
   /** @type {"px" | "rem"} */
   let unit = $state("px")
 
-  /**
-   * TODO:
-   * - Handle negative values on min/max values
-   */
   const formatValueForURL = (value) => value.toString().replaceAll(".", "_")
   const formatURLValue = (value) => value.toString().replaceAll("_", ".")
 
+  /**
+   * Numbers are saved as a Query Parameter in the URL like ?16,24_5,320,1200
+   * They are automatically saved in the URL upon change and placed into the fields upon load.
+   * The values are separated by commas. If they contain a decimal point, it is replaced by an underscore. Min & Max values can also be negative.
+   */
   const urlState = globalThis.window?.location.search
-    .match(/\?(\d+[_]?\d*)-(\d+[_]?\d+),(\d+[_]?\d*)-(\d+[_]?\d+)/)
+    .match(/\?(-?\d+[_]?\d*),(-?\d+[_]?\d+),(\d+[_]?\d*),(\d+[_]?\d+)/)
     ?.slice(1)
-    ?.map((value) => value.split("-").map(formatURLValue))
+    ?.map((value) => value.split(",").map(formatURLValue))
     .flat()
-  // ?.slice(1)
-
-  $inspect(urlState)
 
   const toRem = (value) => +(value / 16)?.toFixed(3)
   const toPx = (value) => +(value * 16)?.toFixed(3)
@@ -69,11 +67,14 @@
   }
 
   $effect(() => {
+    /**
+     * Update the URL with the current values
+     */
     globalThis.window?.history.replaceState(
       {},
       null,
       formatValueForURL(
-        `?${minValue}-${maxValue},${minViewport}-${maxViewport}`
+        `?${minValue},${maxValue},${minViewport},${maxViewport}`
       )
     )
   })
@@ -170,7 +171,6 @@
               class={styles.input}
               type="number"
               step="any"
-              min={0}
               id="max-value"
               value={unit === "px" ? maxValue : toRem(maxValue)}
               onchange={(e) => {
