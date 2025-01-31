@@ -44,6 +44,12 @@
   const hasNegative = $derived(minViewport < 0 || maxViewport < 1)
   const isMinValueGreaterThanMax = $derived(minValue >= maxValue)
   const isMinViewportGreaterThanMax = $derived(minViewport >= maxViewport)
+  const isAnyValueNotANumber = $derived(
+    isNaN(minValue) ||
+      isNaN(maxValue) ||
+      isNaN(minViewport) ||
+      isNaN(maxViewport)
+  )
 
   let isCopied = $state(false)
 
@@ -63,10 +69,19 @@
 
   const validate = () => {
     hasError =
-      hasNegative || isMinValueGreaterThanMax || isMinViewportGreaterThanMax
+      hasNegative ||
+      isMinValueGreaterThanMax ||
+      isMinViewportGreaterThanMax ||
+      isAnyValueNotANumber
   }
 
   $effect(() => {
+    /**
+     * If any value is NaN, don't update the URL
+     */
+    if ([minValue, maxValue, minViewport, maxViewport].some((v) => isNaN(v)))
+      return
+
     /**
      * Update the URL with the current values
      */
@@ -147,11 +162,10 @@
               onblur={validate}
               value={unit === "px" ? minValue : toRem(minValue)}
               onchange={(e) => {
-                const value = e.target.value
+                const value = e.target.valueAsNumber
                 minValue = unit === "rem" ? toPx(value) : value
               }}
             />
-            <!-- bind:value={minValue} -->
             <span class={styles.inputUnit}>
               {unit}
             </span>
@@ -174,7 +188,7 @@
               id="max-value"
               value={unit === "px" ? maxValue : toRem(maxValue)}
               onchange={(e) => {
-                const value = e.target.value
+                const value = e.target.valueAsNumber
                 maxValue = unit === "rem" ? toPx(value) : value
               }}
               onblur={validate}
@@ -234,7 +248,7 @@
   </form>
 
   <!-- This makes errors appear only on blur, but makes them disappear instantly when the user fixes them -->
-  {#if hasError && (hasNegative || isMinValueGreaterThanMax || isMinViewportGreaterThanMax)}
+  {#if hasError && (hasNegative || isMinValueGreaterThanMax || isMinViewportGreaterThanMax || isAnyValueNotANumber)}
     <div class={styles.errors}>
       <strong>Oh no, there are errors: </strong>
       <ul>
@@ -249,6 +263,9 @@
         {/if}
         {#if isMinViewportGreaterThanMax}
           <li>Min viewport must be less than max viewport</li>
+        {/if}
+        {#if isAnyValueNotANumber}
+          <li>Please make sure all values are valid numbers</li>
         {/if}
       </ul>
     </div>
