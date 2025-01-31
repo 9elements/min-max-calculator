@@ -1,4 +1,5 @@
 # build output
+.astro
 dist/
 .output/
 

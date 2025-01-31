@@ -3,37 +3,59 @@
   import { cubicInOut } from "svelte/easing"
   import CheckIcon from "../Icons/Check.svelte"
   import styles from "./Calculator.module.css"
+  import { onMount } from "svelte"
 
-  let unit = "px" // or "rem"
-  $: isRem = unit === "rem"
-  const toRem = (value) => +(isRem ? value : value / 16)?.toFixed(3)
-  const toPx = (value) => +(isRem ? value * 16 : value)?.toFixed(3)
-  const switchToCurrentValue = (value) => (isRem ? toRem(value) : toPx(value))
+  /** @type {"px" | "rem"} */
+  let unit = $state("px")
 
-  let minValue = 16
-  let maxValue = 24
-  let minViewportPx = 320
-  let maxViewportPx = 1200
-  $: minViewport = switchToCurrentValue(minViewportPx)
-  $: maxViewport = switchToCurrentValue(maxViewportPx)
+  const formatValueForURL = (value) => value.toString().replaceAll(".", "_")
+  const formatURLValue = (value) => value.toString().replaceAll("_", ".")
+
+  /**
+   * Numbers are saved as a Query Parameter in the URL like ?16,24_5,320,1200
+   * They are automatically saved in the URL upon change and placed into the fields upon load.
+   * The values are separated by commas. If they contain a decimal point, it is replaced by an underscore. Min & Max values can also be negative.
+   */
+  const urlState = globalThis.window?.location.search
+    .match(/\?(-?\d+[_]?\d*),(-?\d+[_]?\d+),(\d+[_]?\d*),(\d+[_]?\d+)/)
+    ?.slice(1)
+    ?.map((value) => value.split(",").map(formatURLValue))
+    .flat()
+
+  const toRem = (value) => +(value / 16)?.toFixed(3)
+  const toPx = (value) => +(value * 16)?.toFixed(3)
+
+  let minValue = $state(+urlState?.[0] || 16)
+  let maxValue = $state(+urlState?.[1] || 24)
+  let minViewport = $state(+urlState?.[2] || 320)
+  let maxViewport = $state(+urlState?.[3] || 1200)
+  const variablePart = $derived(
+    (maxValue - minValue) / (maxViewport - minViewport)
+  )
+  const constant = $derived(
+    parseFloat(((maxValue - maxViewport * variablePart) / 16).toFixed(3))
+  )
+
+  // prettier-ignore
+  const result = $derived(`clamp(${toRem(minValue)}rem,${constant ? ` ${constant}rem +` : ""} ${parseFloat((100 * variablePart).toFixed(2))}vw, ${toRem(maxValue)}rem)`)
 
   // Errors
-  let hasError = false
-  let hasNegative = false
-  let isMinValueGreaterThanMaxValue = false
-  let isMinViewPortGreaterThanMaxViewPort = false
+  let hasError = $state(false)
+  const hasNegative = $derived(minViewport < 0 || maxViewport < 1)
+  const isMinValueGreaterThanMax = $derived(minValue >= maxValue)
+  const isMinViewportGreaterThanMax = $derived(minViewport >= maxViewport)
+  const isAnyValueNotANumber = $derived(
+    isNaN(minValue) ||
+      isNaN(maxValue) ||
+      isNaN(minViewport) ||
+      isNaN(maxViewport)
+  )
 
-  let result
-  let isCopied = false
+  let isCopied = $state(false)
 
   // Functions
-
   const switchUnit = () => {
-    const switchValue = (value) => (isRem ? toPx(value) : toRem(value))
     unit = unit === "px" ? "rem" : "px"
-
-    minValue = switchValue(minValue)
-    maxValue = switchValue(maxValue)
   }
 
   const copyToClipboard = () => {
@@ -46,36 +68,49 @@
   }
 
   const validate = () => {
-    hasNegative = minViewportPx < 0 || maxViewportPx < 1
-    isMinValueGreaterThanMaxValue = minValue >= maxValue
-    isMinViewPortGreaterThanMaxViewPort = minViewportPx >= maxViewportPx
     hasError =
       hasNegative ||
-      isMinValueGreaterThanMaxValue ||
-      isMinViewPortGreaterThanMaxViewPort
+      isMinValueGreaterThanMax ||
+      isMinViewportGreaterThanMax ||
+      isAnyValueNotANumber
   }
 
-  $: {
-    // Write Result
-    const minValuePx = isRem ? toPx(minValue) : minValue
-    const maxValuePx = isRem ? toPx(maxValue) : maxValue
-    const variablePart = (maxValuePx - minValuePx) / (maxViewport - minViewport)
-    const constant = parseFloat(
-      ((maxValuePx - maxViewport * variablePart) / 16).toFixed(3)
+  $effect(() => {
+    /**
+     * If any value is NaN, don't update the URL
+     */
+    if ([minValue, maxValue, minViewport, maxViewport].some((v) => isNaN(v)))
+      return
+
+    /**
+     * Update the URL with the current values
+     */
+    globalThis.window?.history.replaceState(
+      {},
+      null,
+      formatValueForURL(
+        `?${minValue},${maxValue},${minViewport},${maxViewport}`
+      )
     )
-    // prettier-ignore
-    result = `clamp(${toRem(minValue)}rem,${constant ? ` ${constant}rem +` : ""} ${parseFloat((100 * variablePart).toFixed(2))}vw, ${toRem(maxValue)}rem)`
-  }
+  })
+
+  onMount(() => {
+    validate()
+  })
 </script>
 
 <section class={styles.wrapper}>
-  <form on:submit|preventDefault class={styles.form}>
+  <form onsubmit={(e) => e.preventDefault()} class={styles.form}>
     <fieldset class={styles.fieldset} aria-label="Minimum and maximum Values">
       <div class={styles.fieldsetHeader}>
         <span class={styles.legend} aria-hidden="true">Values</span>
 
         <fieldset class={styles.unitToggle} aria-label="Switch unit">
-          <label for="unit-px" class={styles.unitLabel} data-active={!isRem}>
+          <label
+            for="unit-px"
+            class={styles.unitLabel}
+            data-active={unit === "px"}
+          >
             <span class="sr-only">Pixel</span>
             <span aria-hidden="true">px</span>
           </label>
@@ -83,26 +118,30 @@
             type="radio"
             id="unit-px"
             name="unit"
-            on:change={switchUnit}
+            onchange={switchUnit}
             checked
             class={styles.unitRadio}
           />
 
-          <label for="unit-rem" class={styles.unitLabel} data-active={isRem}>
+          <label
+            for="unit-rem"
+            class={styles.unitLabel}
+            data-active={unit === "rem"}
+          >
             rem
           </label>
           <input
             type="radio"
             id="unit-rem"
             name="unit"
-            on:change={switchUnit}
+            onchange={switchUnit}
             class={styles.unitRadio}
           />
           <span
             class={styles.unitToggleIndicator}
             data-unit={unit}
             aria-hidden="true"
-          />
+          ></span>
         </fieldset>
       </div>
 
@@ -119,9 +158,13 @@
               type="number"
               step="any"
               id="min-value"
-              bind:value={minValue}
               aria-describedby="min-value-description"
-              on:blur={validate}
+              onblur={validate}
+              value={unit === "px" ? minValue : toRem(minValue)}
+              onchange={(e) => {
+                const value = e.target.valueAsNumber
+                minValue = unit === "rem" ? toPx(value) : value
+              }}
             />
             <span class={styles.inputUnit}>
               {unit}
@@ -142,10 +185,13 @@
               class={styles.input}
               type="number"
               step="any"
-              min={0}
               id="max-value"
-              bind:value={maxValue}
-              on:blur={validate}
+              value={unit === "px" ? maxValue : toRem(maxValue)}
+              onchange={(e) => {
+                const value = e.target.valueAsNumber
+                maxValue = unit === "rem" ? toPx(value) : value
+              }}
+              onblur={validate}
             />
             <span class={styles.inputUnit}>
               {unit}
@@ -171,8 +217,8 @@
               step="any"
               id="min-viewport"
               min={0}
-              bind:value={minViewportPx}
-              on:blur={validate}
+              bind:value={minViewport}
+              onblur={validate}
             />
             <span class={styles.inputUnit}>px</span>
           </div>
@@ -191,8 +237,8 @@
               step="any"
               id="max-viewport"
               min={0}
-              bind:value={maxViewportPx}
-              on:blur={validate}
+              bind:value={maxViewport}
+              onblur={validate}
             />
             <span class={styles.inputUnit}>px</span>
           </div>
@@ -201,11 +247,12 @@
     </fieldset>
   </form>
 
-  {#if hasError}
+  <!-- This makes errors appear only on blur, but makes them disappear instantly when the user fixes them -->
+  {#if hasError && (hasNegative || isMinValueGreaterThanMax || isMinViewportGreaterThanMax || isAnyValueNotANumber)}
     <div class={styles.errors}>
       <strong>Oh no, there are errors: </strong>
       <ul>
-        {#if isMinValueGreaterThanMaxValue}
+        {#if isMinValueGreaterThanMax}
           <li>Min value must be less than max value</li>
         {/if}
         {#if hasNegative}
@@ -214,8 +261,11 @@
             the max viewport is greater than 0
           </li>
         {/if}
-        {#if isMinViewPortGreaterThanMaxViewPort}
+        {#if isMinViewportGreaterThanMax}
           <li>Min viewport must be less than max viewport</li>
+        {/if}
+        {#if isAnyValueNotANumber}
+          <li>Please make sure all fields are filled with numbers</li>
         {/if}
       </ul>
     </div>
@@ -230,7 +280,7 @@
       <button
         class={styles.copyButton}
         data-copied={isCopied}
-        on:click={copyToClipboard}
+        onclick={copyToClipboard}
       >
         <span class={styles.copyButtonTextPlaceholder} aria-hidden="true">
           copy
