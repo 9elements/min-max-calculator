@@ -265,7 +265,7 @@
           <li>Min viewport must be less than max viewport</li>
         {/if}
         {#if isAnyValueNotANumber}
-          <li>Please make sure all values are valid numbers</li>
+          <li>Please make sure all fields are filled with numbers</li>
         {/if}
       </ul>
     </div>
