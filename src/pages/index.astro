@@ -41,10 +41,13 @@ const description =
     <meta property="twitter:url" content={Astro.site} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={metaImage} />
+    <meta
+      property="twitter:image"
+      content={new URL(metaImage.src, Astro.site)}
+    />
     <meta name="twitter:creator" content="@9elements" />
-    <meta name="twitter:label1" value="Made with 💜" />
-    <meta name="twitter:data1" value="by Milena, Nesim & Nils @ 9elements" />
+    <meta name="twitter:label1" content="Made with 💜" />
+    <meta name="twitter:data1" content="by Milena, Nesim & Nils @ 9elements" />
 
     <meta name="theme-color" content="#18004a" />
   </head>
@@ -78,7 +81,3 @@ const description =
     <div class={styles.bgBlur} aria-hidden="true"></div>
   </body>
 </html>
-
-<script>
-  import "@zachleat/details-utils"
-</script>

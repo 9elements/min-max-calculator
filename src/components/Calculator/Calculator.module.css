@@ -102,10 +102,12 @@
   inline-size: 50%;
   inset-block-end: 0;
   inset-inline-start: 0;
-  transition: transform 0.4s var(--ease-in-out-expo), background-color 0.2s ease;
+  transition:
+    translate 0.4s var(--ease-in-out-expo),
+    background-color 0.2s ease;
 
   &[data-unit="rem"] {
-    transform: translateX(100%);
+    translate: 100%;
   }
 }
 
@@ -120,7 +122,9 @@
   font-weight: 600;
   grid-row: 1;
   inline-size: var(--height);
-  transition: color 0.5s var(--ease-in-out-quint), border-color 0.2s ease;
+  transition:
+    color 0.5s var(--ease-in-out-quint),
+    border-color 0.2s ease;
 
   &[data-active="true"] {
     color: var(--color-foreground);
@@ -137,7 +141,7 @@
   opacity: 0;
 
   &[id="unit-rem"] {
-    transform: translateX(100%);
+    translate: 100%;
   }
 }
 
@@ -193,8 +197,9 @@
   font-weight: 700;
   min-inline-size: 0;
   padding-inline: 1.25em 3em;
-  transition: box-shadow 0.3s ease-in-out,
-    background-color 0.3s var(--ease-in-out-quad);
+  transition:
+    box-shadow 0.3s ease-in-out,
+    background-color 0.3s var(--ease-in-out-circ);
 
   &:is(:hover, :focus) {
     background-color: hsl(var(--bg-hsl) / 0.9);
@@ -283,7 +288,9 @@
   line-height: 1;
   min-block-size: var(--input-height);
   padding-inline: 2rem;
-  transition: background-color 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+  transition:
+    background-color 0.2s ease-in-out,
+    box-shadow 0.3s ease-in-out;
 
   & ::selection {
     background: hsl(var(--color-purple-hsl) / 0.4);
@@ -344,11 +351,21 @@
 .liveExample {
   margin-block-end: var(--space);
   margin-block-start: 1rem;
-  transform: translateY(calc(-1rem - 1em));
-  transition: transform 0.4s var(--ease-out-quad);
+  transition: translate 0.4s var(--ease-out-quad);
+  transition-delay: 0.1s;
+  translate: 0 calc(-1rem - 1em);
 
   &[open] {
-    transform: translate(0);
+    transition-delay: 0s;
+    translate: 0 0;
+
+    &::details-content {
+      block-size: auto;
+
+      @starting-style {
+        block-size: 0;
+      }
+    }
   }
 
   & summary {
@@ -383,22 +400,35 @@
       border-block-start-color: var(--color-purple);
       content: "";
       inline-size: 0;
-      transition: transform 0.4s var(--ease-in-out-quad);
+      transition: scale 0.4s var(--ease-in-out-circ);
     }
   }
 
   &[open] summary::before {
-    transform: rotate(180deg);
+    scale: 1 -1;
   }
 
-  & div {
+  &::details-content {
+    --transition: 0.4s var(--ease-in-out-cubic);
+
     overflow: hidden;
+    border-radius: var(--space);
+    block-size: 0;
+    interpolate-size: allow-keywords;
+    transition:
+      block-size var(--transition),
+      content-visibility var(--transition) allow-discrete;
+
+    @starting-style {
+      block-size: 0;
+    }
   }
 
   & p {
     padding: var(--space);
     border-radius: var(--space);
     background: rgb(255 255 255 / 0.05);
+    font-size: var(--variable-value);
     line-height: 1.4;
 
     &:focus-visible {
